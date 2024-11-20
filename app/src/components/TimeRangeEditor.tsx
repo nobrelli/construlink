@@ -5,7 +5,7 @@ import DateTimePicker, {
   DateTimePickerAndroid,
   type DateTimePickerEvent,
 } from '@react-native-community/datetimepicker'
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Platform, Pressable, View } from 'react-native'
 import type { Day } from './ScheduleDayItem'
 import { SkinnedText } from './skinned/SkinnedText'
@@ -15,14 +15,10 @@ interface TimeRangeEditorProps {
   onChange?: (timeValue: string) => void
 }
 
-export interface TimeRangeEditorHandleProps {
-  setTimeRange: (timeRange: Day['timeRange']) => void
-}
-
-export const TimeRangeEditor = forwardRef<
-  TimeRangeEditorHandleProps,
-  TimeRangeEditorProps
->(({ timeRange, onChange }, ref) => {
+export const TimeRangeEditor = ({
+  timeRange,
+  onChange,
+}: TimeRangeEditorProps) => {
   const styles = useStyles()
   const [pickerVisible, setPickerVisible] = useState(false)
   const selectedType = useRef<'start' | 'end'>()
@@ -74,14 +70,6 @@ export const TimeRangeEditor = forwardRef<
     }
   }
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      setTimeRange,
-    }),
-    []
-  )
-
   return (
     <>
       <View style={styles.timeRangeContainer}>
@@ -110,7 +98,7 @@ export const TimeRangeEditor = forwardRef<
       )}
     </>
   )
-})
+}
 
 const useStyles = createStyles(({ colors, spacing, sizes, typo }) => ({
   timeRangeContainer: {

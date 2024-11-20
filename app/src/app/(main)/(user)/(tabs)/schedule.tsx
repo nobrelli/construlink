@@ -1,14 +1,10 @@
 import { PageView } from '@/components/PageView'
 import { type Day, ScheduleDayItem } from '@/components/ScheduleDayItem'
-import {
-  TimeRangeEditor,
-  type TimeRangeEditorHandleProps,
-} from '@/components/TimeRangeEditor'
-import { SkinnedBottomSheet } from '@/components/skinned/SkinnedBottomSheet'
-import { SkinnedTextButton } from '@/components/skinned/SkinnedTextButton'
+import { TimeRangeEditorSheet } from '@/components/sheets/TimeRangeEditorSheet'
+import type { SkinnedBottomSheet } from '@/components/skinned/SkinnedBottomSheet'
 import { createStyles } from '@/helpers/createStyles'
 import { useRenderCount } from '@/hooks/useRenderCount'
-import { type ComponentRef, useCallback, useRef, useState } from 'react'
+import { type ComponentRef, useCallback, useRef } from 'react'
 import { View } from 'react-native'
 
 const days: Day[] = [
@@ -53,17 +49,11 @@ export default () => {
   useRenderCount('Schedule Screen')
 
   const styles = useStyles()
-
-  const timeRangeRef = useRef<Day['timeRange']>(['', ''])
-  const timeRangeEditorRef = useRef<TimeRangeEditorHandleProps>(null)
   const bottomSheetRef = useRef<ComponentRef<typeof SkinnedBottomSheet>>(null)
 
   const handleShowTimeRangeEditor = useCallback(
     (timeRange: Day['timeRange']) => {
-      timeRangeRef.current[0] = timeRange[0]
-      timeRangeRef.current[1] = timeRange[1]
-
-      bottomSheetRef.current?.present()
+      bottomSheetRef.current?.present(timeRange)
     },
     []
   )
@@ -83,17 +73,7 @@ export default () => {
           ))}
         </View>
       </PageView>
-      <SkinnedBottomSheet
-        ref={bottomSheetRef}
-        title="Set your time"
-        snapPoints={['30%']}
-        onOpen={() =>
-          timeRangeEditorRef.current?.setTimeRange(timeRangeRef.current)
-        }
-      >
-        <TimeRangeEditor ref={timeRangeEditorRef} />
-        <SkinnedTextButton text="Save" />
-      </SkinnedBottomSheet>
+      <TimeRangeEditorSheet ref={bottomSheetRef} />
     </>
   )
 }

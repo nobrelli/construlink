@@ -83,6 +83,7 @@ const useStyles = createStyles(
     timeContainer: {
       backgroundColor: colors.background,
       paddingHorizontal: spacing[2],
+      paddingVertical: spacing[1],
       borderRadius: sizes.radius.lg,
     },
     timeInline: {
