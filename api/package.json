@@ -1,0 +1,29 @@
+{
+	"name": "@construlink/api",
+	"license": "MIT",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "tsx ./src/index.ts",
+		"start:watch": "tsx watch ./src/index.ts",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
+		"db:apply": "drizzle-kit push",
+		"db:seed": "tsx --env-file=.env ./src/database/seeder.ts"
+	},
+	"packageManager": "yarn@4.5.1",
+	"devDependencies": {
+		"@faker-js/faker": "^9.2.0",
+		"@types/node": "^22.9.0",
+		"@types/pg": "^8.11.10",
+		"drizzle-kit": "^0.28.1",
+		"tsx": "^4.19.2",
+		"typescript": "^5.6.3"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"drizzle-orm": "^0.36.3",
+		"fastify": "^5.1.0",
+		"pg": "^8.13.1"
+	}
+}

@@ -1,0 +1,39 @@
+name: 'construlink-db'
+
+services:
+  db:
+    container_name: db
+    image: postgres:15.9-alpine3.20
+    restart: always
+    volumes:
+      - data:/dev/shm
+    secrets:
+      - db_password
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB: construlink-db
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:snapshot
+    secrets:
+      - pgadmin_password
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ryuedwards@gmail.com
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin_password
+    ports:
+      - 5000:80
+    # When creating a server, use "host.docker.internal" as the host name/address
+
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  pgadmin_password:
+    file: ./secrets/pgadmin_password.txt
+
+volumes:
+  data:

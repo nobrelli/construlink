@@ -1,0 +1,3 @@
+src/database/seed
+src/database/secrets
+.env*
