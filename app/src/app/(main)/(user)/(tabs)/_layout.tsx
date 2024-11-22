@@ -4,7 +4,6 @@ import { useRenderCount } from '@/hooks/useRenderCount'
 import { isEmployer } from '@/stores/auth'
 import { IconSet } from '@/types/Icons'
 import { Ionicons } from '@expo/vector-icons'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { Tabs, router } from 'expo-router'
 import { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -28,14 +27,24 @@ const UserLayout = () => {
       {
         routeName: 'search',
         icon: {
-          outline: {
-            set: IconSet.MaterialCommunityIcons,
-            name: 'briefcase-search-outline',
-          },
-          filled: {
-            set: IconSet.MaterialCommunityIcons,
-            name: 'briefcase-search',
-          },
+          outline: isEmployer
+            ? {
+                set: IconSet.Ionicons,
+                name: 'hammer-outline',
+              }
+            : {
+                set: IconSet.MaterialCommunityIcons,
+                name: 'briefcase-search-outline',
+              },
+          filled: isEmployer
+            ? {
+                set: IconSet.Ionicons,
+                name: 'hammer',
+              }
+            : {
+                set: IconSet.MaterialCommunityIcons,
+                name: 'briefcase-search',
+              },
         },
         shown: true,
       },
@@ -86,57 +95,55 @@ const UserLayout = () => {
   )
 
   return (
-    <BottomSheetModalProvider>
-      <Tabs
-        tabBar={(props) => <TabBar {...props} options={options} />}
-        sceneContainerStyle={styles.sceneContainer}
-        screenOptions={{
-          headerShown: false,
-          tabBarHideOnKeyboard: true,
+    <Tabs
+      tabBar={(props) => <TabBar {...props} options={options} />}
+      sceneContainerStyle={styles.sceneContainer}
+      screenOptions={{
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
+      }}
+      initialRouteName="schedule"
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Search',
         }}
-        initialRouteName="schedule"
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Search',
-          }}
-        />
-        <Tabs.Screen
-          name="schedule"
-          options={{
-            title: 'Schedule',
-          }}
-        />
-        <Tabs.Screen
-          name="jobs"
-          options={{
-            title: 'Jobs',
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Me',
-            headerShown: true,
-            headerTransparent: true,
-            headerTitle: () => null,
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => router.navigate('/(main)/(user)/settings')}
-              >
-                <Ionicons
-                  name="settings-outline"
-                  color={styles.settingsIcon.color}
-                  size={styles.settingsIcon.fontSize}
-                />
-              </TouchableOpacity>
-            ),
-            headerRightContainerStyle: styles.headerRightContainer,
-          }}
-        />
-      </Tabs>
-    </BottomSheetModalProvider>
+      />
+      <Tabs.Screen
+        name="schedule"
+        options={{
+          title: 'Schedule',
+        }}
+      />
+      <Tabs.Screen
+        name="jobs"
+        options={{
+          title: 'Jobs',
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Me',
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: () => null,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => router.navigate('/(main)/(user)/settings')}
+            >
+              <Ionicons
+                name="settings-outline"
+                color={styles.settingsIcon.color}
+                size={styles.settingsIcon.fontSize}
+              />
+            </TouchableOpacity>
+          ),
+          headerRightContainerStyle: styles.headerRightContainer,
+        }}
+      />
+    </Tabs>
   )
 }
 

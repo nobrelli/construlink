@@ -1,8 +1,14 @@
-import { JobCard } from '@/components/JobCard'
 import { PageView } from '@/components/PageView'
+import {
+  TradespersonCard,
+  type TradespersonProps,
+} from '@/components/cards/TradespersonCard'
 import { SkinnedTextInput } from '@/components/skinned/SkinnedTextInput'
 import { createStyles } from '@/helpers/createStyles'
 import { useRenderCount } from '@/hooks/useRenderCount'
+import { isEmployer } from '@/stores/auth'
+import { Spacing } from '@/theme'
+import { Status } from '@/types/Enums'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
@@ -28,6 +34,55 @@ const data = [
   },
 ]
 
+const people: TradespersonProps[] = [
+  {
+    name: 'John Doe',
+    expertise: 'Carpenter',
+    proximity: '5 m',
+    rating: 4.5,
+    status: Status.ONLINE,
+  },
+  {
+    name: 'Johnny Kim',
+    expertise: 'Landscaper',
+    proximity: '1 km',
+    rating: 4.7,
+    status: Status.IDLE,
+  },
+  {
+    name: 'Bill Gates',
+    expertise: 'Plumber',
+    proximity: '5 m',
+    rating: 4.9,
+    status: Status.ONLINE,
+  },
+  {
+    name: 'Mark Zuckerberg',
+    expertise: 'Carpenter',
+    proximity: '100 m',
+    rating: 5.0,
+  },
+  {
+    name: 'Juan de los Reyes',
+    expertise: 'Mason',
+    proximity: '2m',
+    rating: 4.2,
+  },
+  {
+    name: 'Pierre Simon',
+    expertise: 'Crane Operator',
+    proximity: '2m',
+    rating: 4.8,
+    status: Status.IDLE,
+  },
+  {
+    name: 'Simon Cade',
+    expertise: 'Roofer',
+    proximity: '2m',
+    rating: 4.6,
+  },
+]
+
 export default function Home() {
   useRenderCount('Index')
 
@@ -35,18 +90,23 @@ export default function Home() {
   const router = useRouter()
 
   return (
-    <PageView title="Jobs">
+    <PageView
+      title={isEmployer ? 'Tradespeople' : 'Jobs'}
+      contentContainerStyle={{
+        paddingBottom: Spacing[20],
+      }}
+    >
       <SkinnedTextInput
         size="small"
         left={<Feather name="search" />}
-        placeholder="Search trade jobs"
-        onFocus={() => null}
+        placeholder={`Search ${isEmployer ? 'tradespeople' : 'trade jobs'}`}
+        readOnly
         onPress={() => router.navigate('/(main)/(user)/search')}
       />
       <View style={styles.jobsList}>
-        {data.map((job, index) => (
+        {people.map((person, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey:
-          <JobCard key={index} {...job} />
+          <TradespersonCard key={index} {...person} />
         ))}
       </View>
     </PageView>

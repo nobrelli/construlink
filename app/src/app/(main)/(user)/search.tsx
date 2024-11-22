@@ -1,5 +1,5 @@
 import { PageView } from '@/components/PageView'
-import ControlledInput from '@/components/controlled/ControlledTextInput'
+import { ControlledTextInput } from '@/components/controlled/ControlledTextInput'
 import { createStyles } from '@/helpers/createStyles'
 import { useRenderCount } from '@/hooks/useRenderCount'
 import { Feather } from '@expo/vector-icons'
@@ -33,7 +33,7 @@ export default function Search() {
   return (
     <PageView>
       <View style={styles.searchSection}>
-        <ControlledInput
+        <ControlledTextInput
           name="searchQuery"
           control={control}
           rules={{
