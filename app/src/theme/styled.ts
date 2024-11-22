@@ -138,14 +138,17 @@ const TextInput = {
     small: {
       padding: Spacing[2],
       fontSize: Typography.presets.base.fontSize,
+      labelFontSize: Typography.presets.sm.fontSize,
     },
     medium: {
       padding: Spacing[3.5],
       fontSize: Typography.presets.lg.fontSize,
+      labelFontSize: Typography.presets.base.fontSize,
     },
     large: {
       padding: Spacing[5],
       fontSize: Typography.presets.xl.fontSize,
+      labelFontSize: Typography.presets.base.fontSize,
     },
   },
 }
