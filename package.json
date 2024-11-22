@@ -11,6 +11,7 @@
 		"build:app": "yarn workspace @construlink/app buildc",
 		"start:app": "yarn workspace @construlink/app start",
 		"run:app:android": "yarn workspace @construlink/app android",
+		"run:app:android:release": "yarn workspace @construlink/app android:release",
 		"lint": "biome check --write .",
 		"format": "biome format --write .",
 		"prepare": "husky"

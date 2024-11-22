@@ -11,7 +11,6 @@
 		"db:apply": "drizzle-kit push",
 		"db:seed": "tsx --env-file=.env ./src/database/seeder.ts"
 	},
-	"packageManager": "yarn@4.5.1",
 	"devDependencies": {
 		"@faker-js/faker": "^9.2.0",
 		"@types/node": "^22.9.0",
@@ -25,5 +24,6 @@
 		"drizzle-orm": "^0.36.3",
 		"fastify": "^5.1.0",
 		"pg": "^8.13.1"
-	}
+	},
+	"packageManager": "yarn@4.5.1"
 }
