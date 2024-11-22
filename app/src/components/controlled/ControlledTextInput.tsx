@@ -14,16 +14,16 @@ import ErrorMessage from './ErrorMessage'
 
 type TextInputProps = ComponentProps<typeof SkinnedTextInput>
 
-interface ControlledInputProps {
+interface ControlledTextInputProps {
   textInputOptions?: Partial<
     Omit<TextInputProps, 'onBlur' | 'onChange' | 'value' | 'valid' | 'disabled'>
   >
 }
 
-const ControlledInput = <TFields extends FieldValues>({
+export const ControlledTextInput = <TFields extends FieldValues>({
   textInputOptions,
   ...controllerProps
-}: ControlledInputProps & UseControllerProps<TFields>) => {
+}: ControlledTextInputProps & UseControllerProps<TFields>) => {
   const { field, fieldState } = useController(controllerProps)
   const colors = useThemeStore((state) => state.colors)
 
@@ -57,5 +57,3 @@ const ControlledInput = <TFields extends FieldValues>({
     </View>
   )
 }
-
-export default ControlledInput

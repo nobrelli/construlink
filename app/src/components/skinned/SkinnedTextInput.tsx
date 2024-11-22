@@ -1,10 +1,11 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
 import { useThemeStore } from '@/stores/theme'
-import { Sizes, type Styled } from '@/theme'
+import { Sizes, Spacing, type Styled } from '@/theme'
 import { MaterialIcons as Icon } from '@expo/vector-icons'
 import {
   type ComponentPropsWithoutRef,
+  type ElementType,
   type ReactElement,
   type RefObject,
   cloneElement,
@@ -19,7 +20,9 @@ import {
   type TextInputProps,
   type TextStyle,
   TouchableOpacity,
+  type TouchableOpacityProps,
   View,
+  type ViewProps,
   type ViewStyle,
 } from 'react-native'
 import { SkinnedText } from './SkinnedText'
@@ -91,8 +94,8 @@ export const SkinnedTextInput = forwardRef<
       underlineColorAndroid="transparent"
       placeholderTextColor={
         disabled
-          ? resolveColor(colors.neutral[600], colors.neutral[200])
-          : colors.secondaryText
+          ? resolveColor(colors.neutral[600], colors.neutral[100])
+          : resolveColor(colors.neutral[500], colors.neutral[400])
       }
       selectionColor={colors.neutral[300]}
       onFocus={handleFocus}
@@ -122,10 +125,14 @@ export const SkinnedTextInput = forwardRef<
     </TouchableOpacity>
   )
 
+  const InputBody = (rest.onPress ? TouchableOpacity : View) as ElementType<
+    TouchableOpacityProps | ViewProps
+  >
+
   return (
     <View>
       {label && <SkinnedText style={styles.inputLabel}>{label}</SkinnedText>}
-      <View
+      <InputBody
         style={[
           styles.input,
           focused && styles.inputFocus,
@@ -133,6 +140,7 @@ export const SkinnedTextInput = forwardRef<
           disabled && styles.inputDisabled,
           inputWrapperStyle,
         ]}
+        onPress={rest.onPress}
       >
         {left &&
           cloneElement(left, {
@@ -156,7 +164,7 @@ export const SkinnedTextInput = forwardRef<
             size: iconSize,
           } as Omit<ComponentPropsWithoutRef<typeof Icon>, 'name'>)}
         {passwordMode && passwordReveal}
-      </View>
+      </InputBody>
     </View>
   )
 })
@@ -169,7 +177,8 @@ const useStyles = createStyles(
     return {
       inputLabel: {
         marginBottom: spacing[2],
-        fontSize: TextInput.sizes[size].fontSize,
+        fontSize: TextInput.sizes[size].labelFontSize,
+        lineHeight: TextInput.sizes[size].labelFontSize,
       },
 
       // Body

@@ -107,7 +107,7 @@ const useStyles = createStyles(({ colors, spacing, sizes, typo }) => ({
   },
   timeContainer: {
     flex: 1,
-    backgroundColor: resolveColor(colors.neutral[800], colors.neutral[100]),
+    backgroundColor: resolveColor(colors.neutral[700], colors.neutral[100]),
     padding: spacing[2],
     borderRadius: sizes.radius['2xl'],
     alignItems: 'center',

@@ -27,9 +27,9 @@ export const TimeRangeEditorSheet = forwardRef<BottomSheetModal>((_, ref) => {
       ref={sheetRef}
       title="Set your time"
       enableDynamicSizing
+      footerComponent={<SkinnedTextButton text="Save" />}
     >
       <TimeRangeEditor timeRange={timeRange} />
-      <SkinnedTextButton text="Save" />
     </SkinnedBottomSheet>
   )
 })
