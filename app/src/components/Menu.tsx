@@ -4,6 +4,7 @@ import { useRenderCount } from '@/hooks/useRenderCount'
 import type { IconType } from '@/types/Icons'
 import React, { type ReactElement } from 'react'
 import { Pressable, type StyleProp, View, type ViewStyle } from 'react-native'
+import { SpringAnimatedPressable } from './Animated'
 import { Icon } from './Icon'
 import { SkinnedText } from './skinned/SkinnedText'
 
@@ -35,12 +36,15 @@ export function Menu(props: MenuProps) {
   )
 }
 
-function MenuItem({ index, ...item }: MenuItem & { index: number }) {
+function MenuItem({ index, onPress, ...item }: MenuItem & { index: number }) {
   const styles = useStyles()
-  const Component = item.onPress ? Pressable : View
+  const Component = onPress ? SpringAnimatedPressable : View
 
   return (
-    <Component style={[styles.item, !index && { borderTopWidth: 0 }]}>
+    <Component
+      style={[styles.item, !index && { borderTopWidth: 0 }]}
+      onPress={onPress}
+    >
       <View style={styles.left}>
         {item.icon && (
           <Icon
