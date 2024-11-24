@@ -7,55 +7,69 @@ import { SkinnedText } from './skinned/SkinnedText'
 
 interface IPageViewProps extends ScrollViewProps {
   icon: ReactElement
-  title: string
-  subtitle: string
+  title: string | ReactElement
+  subtitle: string | ReactElement
+  scrollable?: boolean
 }
 
 export const PageView = (props: Partial<IPageViewProps>) => {
   useRenderCount(`PageView: ${props.title}`)
 
-  const { icon, title, subtitle, children, contentContainerStyle, ...rest } =
-    props
+  const {
+    icon,
+    title,
+    subtitle,
+    children,
+    contentContainerStyle,
+    scrollable = true,
+    ...rest
+  } = props
   const styles = useStyles()
 
+  const Container = scrollable ? Animated.ScrollView : Animated.View
+
   return (
-    <Animated.ScrollView
+    <Container
       entering={FadeInLeft}
       exiting={FadeOut}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
+      style={!scrollable && [styles.container, contentContainerStyle]}
       contentContainerStyle={[styles.container, contentContainerStyle]}
       {...rest}
     >
       {(icon || title || subtitle) && (
         <View style={styles.pageHeader}>
           {icon && icon}
-          {title && (
+          {typeof title === 'string' ? (
             <SkinnedText type="h5" style={styles.title}>
               {title}
             </SkinnedText>
+          ) : (
+            title
           )}
-          {subtitle && (
+          {typeof subtitle === 'string' ? (
             <SkinnedText type="lead" dim>
               {subtitle}
             </SkinnedText>
+          ) : (
+            subtitle
           )}
         </View>
       )}
       {children}
-    </Animated.ScrollView>
+    </Container>
   )
 }
 
 const useStyles = createStyles(({ spacing, typo }) => ({
   container: {
-    gap: spacing[8],
+    gap: spacing[4],
     paddingHorizontal: spacing[4],
     paddingVertical: spacing[4],
   },
   pageHeader: {
     gap: spacing[2],
-    alignSelf: 'center',
   },
   title: {
     fontFamily: typo.family.semiBold,
