@@ -57,17 +57,17 @@ const Button = {
     },
     base: {
       px: Spacing[5],
-      py: Spacing[2.5],
+      py: Spacing[3.5],
       font: Typography.presets.base,
     },
     large: {
       px: Spacing[5],
-      py: Spacing[3],
+      py: Spacing[3.5],
       font: Typography.presets.lg,
     },
     xlarge: {
       px: Spacing[6],
-      py: Spacing[3.5],
+      py: Spacing[4],
       font: Typography.presets.xl,
     },
   },
@@ -137,12 +137,12 @@ const TextInput = {
   sizes: {
     small: {
       padding: Spacing[2],
-      fontSize: Typography.presets.base.fontSize,
+      fontSize: Typography.presets.sm.fontSize,
       labelFontSize: Typography.presets.sm.fontSize,
     },
     medium: {
-      padding: Spacing[3.5],
-      fontSize: Typography.presets.lg.fontSize,
+      padding: Spacing[3],
+      fontSize: Typography.presets.base.fontSize,
       labelFontSize: Typography.presets.base.fontSize,
     },
     large: {
