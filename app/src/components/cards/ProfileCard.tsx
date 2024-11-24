@@ -1,6 +1,7 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
-import { View } from 'react-native'
+import { router } from 'expo-router'
+import { TouchableOpacity, View } from 'react-native'
 import { Avatar } from '../Avatar'
 import { SkinnedText } from '../skinned/SkinnedText'
 import type { TradespersonProps } from './TradespersonCard'
@@ -8,6 +9,10 @@ import type { TradespersonProps } from './TradespersonCard'
 export function TradespersonProfileCard(props: Partial<TradespersonProps>) {
   const { name, expertise, proximity, rating, badges, status } = props
   const styles = useStyles()
+
+  const handlePress = () => {
+    router.navigate('/(main)/(user)/users/stats')
+  }
 
   return (
     <View style={styles.profileCard}>
@@ -22,30 +27,30 @@ export function TradespersonProfileCard(props: Partial<TradespersonProps>) {
       </View>
       {/* Stats */}
       <View style={styles.statsContainer}>
-        <View style={styles.stat}>
+        <TouchableOpacity style={styles.stat} onPress={handlePress}>
           <SkinnedText type="lead" style={styles.statNumber}>
             32
           </SkinnedText>
           <SkinnedText type="helper" style={styles.statLabel}>
             Job Posts
           </SkinnedText>
-        </View>
-        <View style={styles.stat}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.stat} onPress={handlePress}>
           <SkinnedText type="lead" style={styles.statNumber}>
             102
           </SkinnedText>
           <SkinnedText type="helper" style={styles.statLabel}>
             Hired
           </SkinnedText>
-        </View>
-        <View style={styles.stat}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.stat} onPress={handlePress}>
           <SkinnedText type="lead" style={styles.statNumber}>
             4.8
           </SkinnedText>
           <SkinnedText type="helper" style={styles.statLabel}>
             Rating
           </SkinnedText>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
