@@ -52,7 +52,7 @@ export function SkinnedTextButton(props: SkinnedTextButtonProps) {
     )
 
     return {
-      backgroundColor: interpolatedColor,
+      backgroundColor: variant === 'solid' ? interpolatedColor : undefined,
       borderColor: interpolatedColor,
     }
   })
