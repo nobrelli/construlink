@@ -1330,6 +1330,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-hook-form: "npm:^7.53.2"
     react-native: "npm:0.74.5"
+    react-native-advanced-input-mask: "npm:^1.1.1"
     react-native-gesture-handler: "npm:~2.16.1"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.5"
@@ -10986,6 +10987,16 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 10c0/2bdb6b93fbb1820b024b496042cce405c57e2f85e777c9aabd55f9b26d145408f9f74f5934676ffdc46f3dcff656d78413a6e43968e7b3f92eea35b3052e9053
+  languageName: node
+  linkType: hard
+
+"react-native-advanced-input-mask@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "react-native-advanced-input-mask@npm:1.1.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/8fb8feb49addeb8ecfcb9742e240babf57a6a6ec8feb870d16c0d4ce7ae708b767f8494e3812b620d59ef9f8fa9bbaaae7cd1ab8231460de2adac9424101e468
   languageName: node
   linkType: hard
 
