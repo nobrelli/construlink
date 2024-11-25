@@ -13,19 +13,23 @@ export interface RadioOption {
 }
 
 interface SkinnedRadioInputProps {
+  label?: string
   value?: RadioOption['value']
   options: RadioOption[]
   onChange?: (value: RadioOption['value']) => void
   contentContainerStyle?: StyleProp<ViewStyle>
+  radioInputStyles?: StyleProp<ViewStyle>
   size?: keyof typeof Styled.TextInput.sizes
 }
 
 export function SkinnedRadioInput({
+  label,
   value,
   options,
   onChange,
   size = 'medium',
   contentContainerStyle,
+  radioInputStyles,
 }: SkinnedRadioInputProps) {
   const styles = useStyles({ size })
   const [selected, setSelected] = useState(
@@ -40,32 +44,38 @@ export function SkinnedRadioInput({
   }, [selected])
 
   return (
-    <View style={[styles.container, contentContainerStyle]}>
-      {options.map((option) => (
-        <SpringAnimatedPressable
-          key={option.value}
-          style={[
-            styles.option,
-            isSelected(option.value) && styles.optionSelected,
-          ]}
-          onPress={() => setSelected(option.value)}
-        >
-          <View style={styles.optionLeft}>
-            <View style={styles.radioButtonWrapper}>
-              <View
-                style={[
-                  styles.radioButtonIndicator,
-                  isSelected(option.value) &&
-                    styles.radioButtonIndicatorSelected,
-                ]}
-              />
+    <View>
+      {label && <SkinnedText style={styles.inputLabel}>{label}</SkinnedText>}
+      <View style={[styles.container, contentContainerStyle]}>
+        {options.map((option) => (
+          <SpringAnimatedPressable
+            key={option.value}
+            style={[
+              styles.option,
+              radioInputStyles,
+              isSelected(option.value) && styles.optionSelected,
+            ]}
+            onPress={() => setSelected(option.value)}
+          >
+            <View style={styles.optionLeft}>
+              <View style={styles.radioButtonWrapper}>
+                <View
+                  style={[
+                    styles.radioButtonIndicator,
+                    isSelected(option.value) &&
+                      styles.radioButtonIndicatorSelected,
+                  ]}
+                />
+              </View>
             </View>
-          </View>
-          <View style={styles.optionRight}>
-            <SkinnedText style={styles.optionLabel}>{option.label}</SkinnedText>
-          </View>
-        </SpringAnimatedPressable>
-      ))}
+            <View style={styles.optionRight}>
+              <SkinnedText weight="semiBold" style={styles.optionLabel}>
+                {option.label}
+              </SkinnedText>
+            </View>
+          </SpringAnimatedPressable>
+        ))}
+      </View>
     </View>
   )
 }
@@ -76,7 +86,12 @@ const useStyles = createStyles(
     { size = 'medium' }: Pick<SkinnedRadioInputProps, 'size'>
   ) => ({
     container: {
-      gap: spacing[4],
+      gap: spacing[2],
+    },
+    inputLabel: {
+      marginBottom: spacing[2],
+      fontSize: TextInput.sizes[size].labelFontSize,
+      lineHeight: TextInput.sizes[size].labelFontSize,
     },
     option: {
       gap: spacing[4],
@@ -88,7 +103,7 @@ const useStyles = createStyles(
       borderColor: resolveColor(colors.neutral[700], colors.neutral[200]),
     },
     optionSelected: {
-      backgroundColor: resolveColor(colors.neutral[800], colors.neutral[100]),
+      backgroundColor: resolveColor(colors.neutral[700], colors.neutral[100]),
     },
     optionLeft: {
       alignItems: 'center',

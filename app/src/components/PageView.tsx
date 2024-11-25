@@ -70,6 +70,7 @@ const useStyles = createStyles(({ spacing, typo }) => ({
   },
   pageHeader: {
     gap: spacing[2],
+    marginBottom: spacing[4],
   },
   title: {
     fontFamily: typo.family.semiBold,

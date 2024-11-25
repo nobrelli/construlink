@@ -48,7 +48,7 @@ export function SkinnedSelectInput(props: SkinnedSelectInputProps) {
         }
         onPress={handleOnPress}
         right={
-          <Icon set={IconSet.MaterialCommunityIcons} name="chevron-down" />
+          <Icon set={IconSet.MaterialCommunityIcons} name="chevron-right" />
         }
       />
       <SkinnedBottomSheet
