@@ -8,10 +8,17 @@ export enum Role {
 
 type State = {
   role: Role
+  credentialToVerify: string
 }
 
-export const useAuthStore = create<State>()((set) => ({
+type Action = {
+  setCredentialToVerify: (value: string) => void
+}
+
+export const useAuthStore = create<State & Action>()((set) => ({
   role: Role.EMPLOYER,
+  credentialToVerify: '',
+  setCredentialToVerify: (value) => set({ credentialToVerify: value }),
 }))
 
 export const isEmployer = useAuthStore.getState().role === Role.EMPLOYER
