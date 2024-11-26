@@ -1,23 +1,26 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended"],
+	"extends": ["config:base"],
 	"packageRules": [
 		{
 			"matchPackageNames": [
 				"react",
 				"react-dom",
-				"react-native**",
-				"@react-native**",
-				"expo**",
-				"@expo**",
+				"react-native*",
+				"@react-native*/*",
+				"@react-native-community/*",
+				"@react-navigation*/*",
+				"expo*",
+				"@expo/*",
 				"typescript",
-				"jest**",
+				"jest*",
 				"@types/jest",
 				"@types/react",
-				"@babel**",
+				"@babel*/*",
 				"@testing-library/react-native"
 			],
 			"enabled": false
 		}
-	]
+	],
+	"prHourlyLimit": 1
 }
