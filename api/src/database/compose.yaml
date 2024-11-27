@@ -3,7 +3,7 @@ name: 'construlink-db'
 services:
   db:
     container_name: db
-    image: postgres:15.9-alpine3.20
+    image: postgres:15.10-alpine3.20
     restart: always
     volumes:
       - data:/dev/shm
