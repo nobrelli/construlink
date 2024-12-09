@@ -1,0 +1,18 @@
+{
+	"name": "construlink",
+	"version": "1.0.0",
+	"scripts": {
+		"lint": "biome check --write .",
+		"format": "biome format --write ."
+	},
+	"workspaces": [
+		"app",
+		"api"
+	],
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"husky": "^9.1.7"
+	},
+	"private": true,
+	"packageManager": "yarn@4.5.3"
+}
