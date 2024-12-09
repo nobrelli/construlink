@@ -7,7 +7,13 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["package.json", "renovate.json", "app.json"]
+		"ignore": [
+			"package.json",
+			"renovate.json",
+			"app.json",
+			"app/android",
+			"app/ios"
+		]
 	},
 	"formatter": {
 		"enabled": true,
