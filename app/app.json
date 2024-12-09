@@ -1,0 +1,64 @@
+{
+	"expo": {
+		"name": "Construlink",
+		"slug": "construlink",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./src/assets/images/icon.png",
+		"scheme": "construlink",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"image": "./src/assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#141314"
+		},
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.nobrelli.construlink",
+			"googleServicesFile": "./GoogleService-Info.plist"
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./src/assets/images/adaptive-icon.png",
+				"backgroundColor": "#141314"
+			},
+			"package": "com.nobrelli.construlink",
+			"googleServicesFile": "./google-services.json"
+		},
+		"web": {
+			"bundler": "metro",
+			"output": "static",
+			"favicon": "./src/assets/images/favicon.png"
+		},
+		"plugins": [
+			"expo-router",
+			"expo-font",
+			// [
+			// 	"expo-build-properties",
+			// 	{
+			// 		"android": {
+			// 			"newArchEnabled": true
+			// 		},
+			// 		"ios": {
+			// 			"newArchEnabled": true
+			// 		}
+			// 	}
+			// ],
+			"expo-secure-store",
+			"@react-native-firebase/app",
+			"@react-native-firebase/auth",
+			"@react-native-firebase/crashlytics",
+			[
+				"expo-build-properties",
+				{
+					"ios": {
+						"useFrameworks": "static"
+					}
+				}
+			]
+		],
+		"experiments": {
+			"typedRoutes": true
+		}
+	}
+}
