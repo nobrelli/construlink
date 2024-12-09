@@ -98,8 +98,7 @@ export default function Forgot() {
         </View>
       </View>
       <ClText style={{ alignSelf: 'center' }}>
-        Back to{' '}
-        <ClLinkText href="/(main)/(auth)/signin">Sign in</ClLinkText>
+        Back to <ClLinkText href="/(main)/(auth)/signin">Sign in</ClLinkText>
       </ClText>
     </ClPageView>
   )

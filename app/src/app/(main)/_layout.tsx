@@ -38,13 +38,11 @@ export default function MainLayout() {
   })
 
   useUpdateEffect(() => {
-    if (!initializing)
-      SplashScreen.hideAsync()
+    if (!initializing) SplashScreen.hideAsync()
   }, [initializing])
 
   useUpdateEffect(() => {
-    if (user)
-      router.replace('/(main)/(tabs)/')
+    if (user) router.replace('/(main)/(tabs)/')
   }, [user])
 
   if (initializing) {
