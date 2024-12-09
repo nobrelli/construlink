@@ -1,6 +1,7 @@
 import { ClSpinner } from '@/components/ClSpinner'
 import { useRenderCount } from '@/hooks/useRenderCount'
 import { useScheme } from '@/hooks/useScheme'
+import { AccountService } from '@/services/account'
 import { useThemeStore } from '@/stores/theme'
 import { Palette } from '@/theme'
 import {
@@ -23,6 +24,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 export { ErrorBoundary } from 'expo-router'
 
 SplashScreen.preventAutoHideAsync()
+
+// Start services
+AccountService.getInstance()
 
 export default function RootLayout() {
   useRenderCount('RootLayout')

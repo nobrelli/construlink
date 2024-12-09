@@ -9,11 +9,10 @@ import { ControlledTextInput } from '@/components/controlled/ControlledTextInput
 import { createStyles } from '@/helpers/createStyles'
 import patterns from '@/helpers/patterns'
 import { resolveColor } from '@/helpers/resolveColor'
+import { AccountService } from '@/services/account'
 import { useAuthStore } from '@/stores/auth'
 import { Spacing } from '@/theme'
 import type { SignInFields } from '@/types/Fields'
-import type { ReactNativeFirebase } from '@react-native-firebase/app'
-import auth from '@react-native-firebase/auth'
 import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -49,28 +48,19 @@ export default function Signin() {
   const onSubmit: SubmitHandler<SignInFields> = async (data) => {
     passwordRef.current?.blur()
 
-    try {
-      const result = await auth().signInWithEmailAndPassword(
-        data.email,
-        data.password
-      )
+    const { userCredential, errorMessage } = await AccountService.emailSignIn(
+      data.email,
+      data.password
+    )
 
-      setUser(result.user)
+    if (userCredential) {
+      setUser(userCredential.user)
       router.replace('/(main)/(tabs)/')
-    } catch (error: unknown) {
-      const fbError = error as ReactNativeFirebase.NativeFirebaseError
-      console.error(fbError)
-      if (fbError.code === 'auth/invalid-credential') {
-        setError('root.signin', {
-          message: 'The supplied credentials are incorrect.',
-          type: 'signin',
-        })
-      } else {
-        setError('root.signin', {
-          message: 'Unable to sign in due to unstable network.',
-          type: 'signin',
-        })
-      }
+    } else {
+      setError('root.signin', {
+        message: errorMessage,
+        type: 'signin',
+      })
     }
   }
 
