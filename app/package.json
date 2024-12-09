@@ -9,7 +9,8 @@
 		"start": "expo start",
 		"android": "expo run:android --device",
 		"android:release": "expo run:android --device --variant release",
-		"ios": "expo run:ios",
+		"ios": "expo run:ios --device",
+		"ios:release": "expo run:ios --device --variant release",
 		"web": "expo start --web",
 		"test": "jest",
 		"test:watch": "jest --watchAll"
