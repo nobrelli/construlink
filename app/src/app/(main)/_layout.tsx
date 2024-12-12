@@ -1,6 +1,7 @@
 import { ClSpinner } from '@/components/ClSpinner'
 import { ClStack } from '@/components/navigation/ClStack'
 import { useRenderCount } from '@/hooks/useRenderCount'
+import { AccountService } from '@/services/account'
 import { useAuthStore } from '@/stores/auth'
 import auth, { type FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { useMount, useUpdateEffect } from '@reactuses/core'
@@ -17,15 +18,25 @@ export default function MainLayout() {
   useRenderCount('MainLayout')
 
   const [initializing, setInitializing] = useState(true)
-  const { user, setUser } = useAuthStore(
+  const { user, role, setUser, setRole } = useAuthStore(
     useShallow((state) => ({
       user: state.user,
+      role: state.role,
       setUser: state.setUser,
+      setRole: state.setRole
     }))
   )
 
-  const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
-    setUser(user)
+  const onAuthStateChanged = async (user: FirebaseAuthTypes.User | null) => {
+    if (user) {
+      setUser(user)
+
+      if (!role) {
+        const role = await AccountService.getRole(user.uid)
+        console.log(role)
+        setRole(role)
+      }
+    }
 
     if (initializing) {
       setInitializing(false)

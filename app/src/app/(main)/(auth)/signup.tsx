@@ -1,3 +1,4 @@
+import { AlertState, ClAlert } from '@/components/ClAlert'
 import { ClLinkText } from '@/components/ClLinkText'
 import { ClPageView } from '@/components/ClPageView'
 import { ClRadioInput, type RadioOption } from '@/components/ClRadio'
@@ -8,12 +9,15 @@ import { ControlledTextInput } from '@/components/controlled/ControlledTextInput
 import { createStyles } from '@/helpers/createStyles'
 import patterns from '@/helpers/patterns'
 import { resolveColor } from '@/helpers/resolveColor'
+import { AccountService } from '@/services/account'
+import { useAuthStore } from '@/stores/auth'
 import { Spacing, Typo } from '@/theme'
 import { Role } from '@/types/Enums'
 import type { SignUpFields } from '@/types/Fields'
 import type { ReactNativeFirebase } from '@react-native-firebase/app'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
+import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import {
   Controller,
@@ -22,6 +26,7 @@ import {
   useForm,
 } from 'react-hook-form'
 import { type GestureResponderEvent, type TextInput, View } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
 
 const options: RadioOption[] = [
   {
@@ -48,7 +53,9 @@ export default function SignUp() {
     control,
     handleSubmit,
     resetField,
-    formState: { isSubmitting },
+    clearErrors,
+    setError,
+    formState: { isSubmitting, errors },
   } = useForm<SignUpFields>({
     defaultValues: {
       role: Role.TRADESPERSON,
@@ -64,27 +71,26 @@ export default function SignUp() {
   const emailRef = useRef<TextInput>(null)
   const phoneRef = useRef<TextInput>(null)
   const passwordRef = useRef<TextInput>(null)
+  const { setRole, setUser } = useAuthStore(
+    useShallow((state) => ({
+      setRole: state.setRole,
+      setUser: state.setUser,
+    }))
+  )
 
   const onSubmit: SubmitHandler<SignUpFields> = async (data) => {
-    if (data.email) {
-      try {
-        const { user } = await auth().createUserWithEmailAndPassword(
-          data.email,
-          data.password
-        )
+    passwordRef.current?.blur()
 
-        try {
-          await firestore().collection('users').doc(user.uid).set({
-            role: data.role,
-            firstName: data.firstName,
-            lastName: data.lastName,
-          })
-        } catch (error) {
-          const fbError = error as ReactNativeFirebase.NativeFirebaseError
-        }
-      } catch (error) {
-        const fbError = error as ReactNativeFirebase.NativeFirebaseError
-      }
+    const { userCredential, errorMessage } = await AccountService.signUp(data)
+
+    if (userCredential) {
+      setUser(userCredential.user)
+      router.replace('/(main)/(tabs)/')
+    } else {
+      setError('root.signup', {
+        message: errorMessage,
+        type: 'signup',
+      })
     }
   }
 
@@ -227,6 +233,18 @@ export default function SignUp() {
           <ClTextButton text="Continue" onPress={handleSubmit(onSubmit)} />
         </View>
       </ClPageView>
+      {errors.root?.signup && (
+        <ClAlert
+          visible={true}
+          title="Sign in failed"
+          description={errors.root.signup.message}
+          state={AlertState.ERROR}
+          rightButton={{
+            text: 'Retry',
+            onPress: () => clearErrors('root'),
+          }}
+        />
+      )}
       {isSubmitting && <ClSpinner transluscent />}
     </>
   )

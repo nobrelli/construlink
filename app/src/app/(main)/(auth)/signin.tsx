@@ -54,7 +54,11 @@ export default function Signin() {
     )
 
     if (userCredential) {
+      const role = await AccountService.getRole(userCredential.user.uid)
+
       setUser(userCredential.user)
+      setRole(role)
+
       router.replace('/(main)/(tabs)/')
     } else {
       setError('root.signin', {
