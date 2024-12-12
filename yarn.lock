@@ -1280,6 +1280,7 @@ __metadata:
     "@react-native-firebase/auth": "npm:^21.6.1"
     "@react-native-firebase/crashlytics": "npm:^21.6.1"
     "@react-native-firebase/firestore": "npm:^21.6.1"
+    "@react-native-firebase/messaging": "npm:^21.6.1"
     "@react-navigation/bottom-tabs": "npm:^6.6.1"
     "@react-navigation/native": "npm:^6.1.18"
     "@reactuses/core": "npm:^5.0.23"
@@ -3165,6 +3166,19 @@ __metadata:
   peerDependencies:
     "@react-native-firebase/app": 21.6.1
   checksum: 10c0/dd0b215ad5a4cfe2af242dc798e693ee5eea0265e3d6ade8968a18395b8c4ef8a60aa7af549451f2b00dfb8430c98082726cf511d2c847900b5e082914059b0e
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/messaging@npm:^21.6.1":
+  version: 21.6.1
+  resolution: "@react-native-firebase/messaging@npm:21.6.1"
+  peerDependencies:
+    "@react-native-firebase/app": 21.6.1
+    expo: ">=47.0.0"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: 10c0/d783fb8ef7fcbe1dfb7fdd2efde974e6696c6e4d6fe1ac9ff490534b0d52b7655bdf67df0878bd4ccb353f28bc8dd519418dbfeee9bb0110299f28781f9237a3
   languageName: node
   linkType: hard
 
