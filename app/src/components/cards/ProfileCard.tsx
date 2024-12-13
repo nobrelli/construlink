@@ -21,7 +21,7 @@ export function TradespersonProfileCard(props: Partial<TradespersonProps>) {
         <ClText type="h6" style={styles.name}>
           {name}
         </ClText>
-        <ClText type="helper" style={styles.role}>
+        <ClText type="helper" style={styles.role} dim>
           {expertise}
         </ClText>
       </View>

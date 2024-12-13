@@ -10,6 +10,7 @@ import { ClIcon } from '../ClIcon'
 import { ClText } from '../ClText'
 
 export interface TradespersonProps {
+  userId: string
   name: string
   expertise: string
   proximity: string
@@ -19,14 +20,14 @@ export interface TradespersonProps {
 }
 
 export function TradespersonCard(props: TradespersonProps) {
-  const { name, expertise, proximity, rating, badges, status } = props
+  const { userId, name, expertise, proximity, rating, badges, status } = props
   const styles = useStyles()
 
   const handleViewProfile = () => {
     router.navigate({
       pathname: '/(main)/(user)/users/[userId]',
       params: {
-        userId: name,
+        userId,
       },
     })
   }
