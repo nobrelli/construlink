@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth'
 import { useEffect, useRef } from 'react'
 
 export function useRenderCount(componentName: string) {
