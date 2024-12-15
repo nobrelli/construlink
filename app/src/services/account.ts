@@ -1,4 +1,4 @@
-import type { Role } from '@/types/Enums'
+import { Role } from '@/types/Enums'
 import type { SignUpFields } from '@/types/Fields'
 import type { ReactNativeFirebase } from '@react-native-firebase/app'
 import auth, { type FirebaseAuthTypes } from '@react-native-firebase/auth'
@@ -12,7 +12,7 @@ interface AccountServiceResponse {
 export class AccountService {
   private static _instance: AccountService
 
-  private constructor() { }
+  private constructor() {}
 
   public static getInstance() {
     if (!AccountService._instance) {
@@ -27,7 +27,10 @@ export class AccountService {
     password: string
   ): Promise<AccountServiceResponse> {
     try {
-      const userCredential = await auth().signInWithEmailAndPassword(email, password)
+      const userCredential = await auth().signInWithEmailAndPassword(
+        email,
+        password
+      )
 
       return { userCredential }
     } catch (error: unknown) {
@@ -45,8 +48,7 @@ export class AccountService {
     try {
       const result = await firestore().collection('roles').doc(userId).get()
 
-      if (result.exists)
-        return result.get('role') as Role
+      if (result.exists) return result.get('role') as Role
 
       return null
     } catch (error: unknown) {
@@ -64,7 +66,9 @@ export class AccountService {
     }
   }
 
-  public static async signUp(data: SignUpFields): Promise<AccountServiceResponse> {
+  public static async signUp(
+    data: SignUpFields
+  ): Promise<AccountServiceResponse> {
     try {
       const userCredential = await auth().createUserWithEmailAndPassword(
         data.email,
@@ -72,8 +76,11 @@ export class AccountService {
       )
 
       try {
+        const collectionName =
+          data.role === Role.EMPLOYER ? 'employers' : 'tradespeople'
+
         await firestore()
-          .collection('users')
+          .collection(collectionName)
           .doc(userCredential.user.uid)
           .set({
             role: data.role,
@@ -81,7 +88,10 @@ export class AccountService {
             lastName: data.lastName,
           })
       } catch (error: unknown) {
-        return { errorMessage: 'Unable to process the request due to an error in the server.' }
+        return {
+          errorMessage:
+            'Unable to process the request due to an error in the server.',
+        }
       }
 
       return { userCredential }
@@ -91,10 +101,14 @@ export class AccountService {
       console.error(fbError)
 
       if (fbError.code === 'auth/email-already-in-use') {
-        return { errorMessage: 'This email is already associated with an account.' }
+        return {
+          errorMessage: 'This email is already associated with an account.',
+        }
       }
 
-      return { errorMessage: 'Unable to send the request due to unstable network.' }
+      return {
+        errorMessage: 'Unable to send the request due to unstable network.',
+      }
     }
   }
 
