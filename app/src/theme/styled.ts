@@ -1,3 +1,4 @@
+import MontserratFontFace from '@/assets/fonts/montserrat/font-face'
 import Colors from './palette'
 import Sizes from './sizes'
 import Spacing from './spacing'
@@ -187,9 +188,32 @@ const TextInput = {
   },
 }
 
+const RichTextInput = {
+  initialCSSText: MontserratFontFace,
+  contentCSSText: `
+    font-family: 'Montserrat', sans-serif;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 200px; 
+    position: absolute; 
+    top: 0; right: 0; bottom: 0; left: 0;
+  `,
+  colors: {
+    light: {
+      textColor: Colors.light.primaryText,
+      backgroundColor: Colors.light.neutral[100],
+    },
+    dark: {
+      textColor: Colors.dark.primaryText,
+      backgroundColor: Colors.light.neutral[800],
+    },
+  },
+}
+
 export default {
   Button,
   Toast,
   CheckBox,
   TextInput,
+  RichTextInput,
 } as const
