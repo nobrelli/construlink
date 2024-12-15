@@ -1,31 +1,60 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
+import { capitalizeFirst } from '@/helpers/stringUtils'
+import typography from '@/theme/typography'
 import { View } from 'react-native'
-import { SkinnedText } from './skinned/SkinnedText'
+import { ClText } from '../ClText'
 
 interface JobCardProps {
   title: string
-  company: string
-  address: string
+  author: string
+  location: string
+  description: string
   duration: string
+  employmentType: string
+  pay?: string
 }
 
 export function JobCard(props: JobCardProps) {
-  const { title, company, address, duration } = props
+  const { title, author, location, description, duration, employmentType } =
+    props
   const styles = useStyles()
 
   return (
     <View style={styles.card}>
-      <SkinnedText weight="bold" style={styles.title}>
-        {title}
-      </SkinnedText>
       <View>
-        <SkinnedText>{company}</SkinnedText>
-        <SkinnedText>{address}</SkinnedText>
+        <ClText
+          weight="bold"
+          style={{ fontSize: typography.presets.lg.fontSize }}
+        >
+          {title}
+        </ClText>
+        <ClText style={{ fontSize: typography.presets.base.fontSize }}>
+          {author}
+        </ClText>
       </View>
-      <SkinnedText type="helper" dim>
+      <View>
+        <ClText style={{ fontSize: typography.presets.sm.fontSize }}>
+          {capitalizeFirst(employmentType)}
+        </ClText>
+        <ClText style={{ fontSize: typography.presets.sm.fontSize }}>
+          {location}
+        </ClText>
+      </View>
+      <ClText
+        style={{ fontSize: typography.presets.sm.fontSize }}
+        type="helper"
+        dim
+      >
+        {description}
+      </ClText>
+      <ClText
+        style={{ fontSize: typography.presets.xs.fontSize }}
+        type="helper"
+        dim
+      >
         Posted {duration} ago
-      </SkinnedText>
+      </ClText>
     </View>
   )
 }
@@ -34,11 +63,10 @@ const useStyles = createStyles(({ colors, sizes, spacing, typo }) => ({
   card: {
     backgroundColor: resolveColor(colors.neutral[800], colors.neutral[100]),
     borderRadius: sizes.radius['2xl'],
-    padding: spacing[5],
-    flex: 1,
-    gap: spacing[3],
-  },
-  title: {
-    fontSize: typo.presets.lg.fontSize,
+    borderWidth: sizes.borderWidth.thin,
+    borderColor: resolveColor(colors.neutral[700], colors.neutral[200]),
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[3],
+    gap: spacing[4],
   },
 }))

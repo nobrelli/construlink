@@ -25,7 +25,7 @@ export function TradespersonCard(props: TradespersonProps) {
 
   const handleViewProfile = () => {
     router.navigate({
-      pathname: '/(main)/(user)/users/[userId]',
+      pathname: '/(main)/(user)/[userId]',
       params: {
         userId,
       },
