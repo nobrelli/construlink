@@ -1,9 +1,10 @@
+import { ClIcon } from '@/components/ClIcon'
 import { ClTabBar, type ClTabOption } from '@/components/navigation/ClTabBar'
 import { createStyles } from '@/helpers/createStyles'
+import { resolveColor } from '@/helpers/resolveColor'
 import { useRenderCount } from '@/hooks/useRenderCount'
-import { isEmployer } from '@/stores/auth'
+import { isEmployer, useAuthStore } from '@/stores/auth'
 import { IconSet } from '@/types/Icons'
-import { Ionicons } from '@expo/vector-icons'
 import { Tabs, router } from 'expo-router'
 import { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -22,6 +23,7 @@ const UserLayout = () => {
   const insets = useSafeAreaInsets()
   const styles = useStyles({ insets })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
   const options: ClTabOption[] = useMemo(
     () => [
       {
@@ -91,7 +93,7 @@ const UserLayout = () => {
         shown: true,
       },
     ],
-    []
+    [useAuthStore.getState().role]
   )
 
   return (
@@ -120,6 +122,22 @@ const UserLayout = () => {
         name="jobs"
         options={{
           title: 'Jobs',
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: () => null,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => router.navigate('/(main)/(user)/job/create')}
+            >
+              <ClIcon
+                set={IconSet.Ionicons}
+                name="add-circle"
+                color={styles.settingsIcon.color}
+                size={styles.settingsIcon.fontSize}
+              />
+            </TouchableOpacity>
+          ),
+          headerRightContainerStyle: styles.headerRightContainer,
         }}
       />
       <Tabs.Screen
@@ -133,8 +151,9 @@ const UserLayout = () => {
             <TouchableOpacity
               onPress={() => router.navigate('/(main)/(user)/settings')}
             >
-              <Ionicons
-                name="settings-outline"
+              <ClIcon
+                set={IconSet.Ionicons}
+                name="settings"
                 color={styles.settingsIcon.color}
                 size={styles.settingsIcon.fontSize}
               />
@@ -159,7 +178,7 @@ const useStyles = createStyles(
       paddingTop: spacing[2],
     },
     settingsIcon: {
-      color: colors.primaryText,
+      color: resolveColor(colors.accent.base, colors.brand.base),
       fontSize: sizes.icon.md,
     },
   })

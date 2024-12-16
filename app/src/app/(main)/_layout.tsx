@@ -2,6 +2,7 @@ import { ClSpinner } from '@/components/ClSpinner'
 import { ClStack } from '@/components/navigation/ClStack'
 import { useRenderCount } from '@/hooks/useRenderCount'
 import { AccountService } from '@/services/account'
+import { JobService } from '@/services/job'
 import { useAuthStore } from '@/stores/auth'
 import auth, { type FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { useMount, useUpdateEffect } from '@reactuses/core'
@@ -23,7 +24,7 @@ export default function MainLayout() {
       user: state.user,
       role: state.role,
       setUser: state.setUser,
-      setRole: state.setRole
+      setRole: state.setRole,
     }))
   )
 
@@ -33,9 +34,11 @@ export default function MainLayout() {
 
       if (!role) {
         const role = await AccountService.getRole(user.uid)
-        console.log(role)
         setRole(role)
       }
+
+      // Start Job service
+      JobService.getInstance(user.uid)
     }
 
     if (initializing) {
@@ -61,9 +64,10 @@ export default function MainLayout() {
   }
 
   return (
-    <ClStack>
+    <ClStack initialRouteName="(user)">
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(user)" options={{ headerShown: false }} />
+      <Stack.Screen name="(legal)/terms" options={{ title: 'Terms & Policies' }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </ClStack>
   )
