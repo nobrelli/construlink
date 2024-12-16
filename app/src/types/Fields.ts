@@ -26,13 +26,19 @@ export interface CreateJobFields {
   category: string
   employmentType: string
   location: string
-  summary: string
   description: string
   postAs: string
   deadline: string
-  startDate: string
-  endDate: string
-  pay: string
-  payPeriod: string
-  isPayRange: string
+  payAmount: number
+  payAmountMin: number
+  payAmountMax: number
+  rate: string
+  isUsingRange: boolean
+}
+
+export interface CreateCompanyFields {
+  name: string
+  description: string
+  size: string
+  location: string
 }
