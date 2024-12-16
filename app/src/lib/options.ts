@@ -1,3 +1,4 @@
+import type { RadioOption } from '@/components/ClRadio'
 import type { SelectInputOption } from '@/components/ClSelectInput'
 
 export namespace Cl {
@@ -68,6 +69,55 @@ export namespace Cl {
     {
       label: 'Contract',
       value: 'contract',
+    },
+  ]
+
+  export const ratePeriods: SelectInputOption[] = [
+    {
+      label: 'Hourly',
+      value: 'hourly',
+    },
+    {
+      label: 'Daily',
+      value: 'daily',
+    },
+    {
+      label: 'Weekly',
+      value: 'weekly',
+    },
+    {
+      label: 'Monthly',
+      value: 'monthly',
+    },
+  ]
+
+  export const postAs: RadioOption[] = [
+    {
+      label: 'Individual',
+      value: 'individual',
+    },
+    {
+      label: 'Company',
+      value: 'company',
+    },
+  ]
+
+  export const companySizes: SelectInputOption[] = [
+    {
+      label: 'Micro (less than 10 employees)',
+      value: 'micro',
+    },
+    {
+      label: 'Small (10-99 employees)',
+      value: 'small',
+    },
+    {
+      label: 'Medium (100-199 employees)',
+      value: 'medium',
+    },
+    {
+      label: 'Large (200 or more employees)',
+      value: 'large',
     },
   ]
 }
