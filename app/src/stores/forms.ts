@@ -1,16 +1,34 @@
-import { Role } from '@/types/Enums'
-import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import type { CreateJobFields } from '@/types/Fields'
 import { create } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
 
 type State = {
-  jobDescription: string
+  createJobFields: Partial<CreateJobFields>
 }
 
 type Action = {
-  setJobDescription: (html: string) => void
+  setCreateJobFields: (fields: Partial<CreateJobFields>) => void
+  reset: () => void
 }
 
-export const useFormStore = create<State & Action>()((set) => ({
-  jobDescription: '',
-  setJobDescription: (html) => set({ jobDescription: html }),
-}))
+const initialState: State = {
+  createJobFields: {
+    category: '',
+    deadline: '',
+    description: '',
+    employmentType: '',
+    isUsingRange: false,
+    location: '',
+    postAs: 'individual',
+    rate: '',
+    title: '',
+  },
+}
+
+export const useFormStore = create<State & Action>()(
+  immer((set) => ({
+    ...initialState,
+    setCreateJobFields: (fields) => set({ createJobFields: fields }),
+    reset: () => set(initialState),
+  }))
+)
