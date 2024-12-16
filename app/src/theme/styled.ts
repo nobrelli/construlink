@@ -197,6 +197,7 @@ const RichTextInput = {
     min-height: 200px; 
     position: absolute; 
     top: 0; right: 0; bottom: 0; left: 0;
+    line-height: 24px;
   `,
   colors: {
     light: {
