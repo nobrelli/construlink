@@ -75,7 +75,8 @@ export const ClBottomSheet = forwardRef<BottomSheetModal, ClBottomSheetProps>(
         footerComponent={footerComponent ? renderFooter : undefined}
       >
         <View contentContainerStyle={styles.container}>
-          <ClText style={styles.title}>{title}</ClText>
+          {children}
+          {/* <ClText style={styles.title}>{title}</ClText>
           <View
             style={[
               styles.contents,
@@ -86,7 +87,7 @@ export const ClBottomSheet = forwardRef<BottomSheetModal, ClBottomSheetProps>(
             ]}
           >
             {children}
-          </View>
+          </View> */}
         </View>
       </BottomSheetModal>
     )
