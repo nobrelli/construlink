@@ -11,7 +11,7 @@ export function TradespersonProfileCard(props: Partial<TradespersonProps>) {
   const styles = useStyles()
 
   const handlePress = () => {
-    router.navigate('/(main)/(user)/users/stats')
+    router.navigate('/(main)/(user)/stats')
   }
 
   return (
