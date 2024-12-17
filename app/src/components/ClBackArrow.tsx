@@ -10,7 +10,7 @@ interface ClBackArrowProps {
 export function ClBackArrow({ tintColor, canGoBack }: ClBackArrowProps) {
   return canGoBack ? (
     <TouchableOpacity onPress={() => router.back()}>
-      <Icon name="chevron-left" size={48} color={tintColor} />
+      <Icon name="chevron-left" size={44} color={tintColor} />
     </TouchableOpacity>
   ) : null
 }
