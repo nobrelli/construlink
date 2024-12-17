@@ -192,11 +192,6 @@ const RichTextInput = {
   initialCSSText: MontserratFontFace,
   contentCSSText: `
     font-family: 'Montserrat', sans-serif;
-    display: flex; 
-    flex-direction: column; 
-    min-height: 200px; 
-    position: absolute; 
-    top: 0; right: 0; bottom: 0; left: 0;
     line-height: 24px;
   `,
   colors: {
