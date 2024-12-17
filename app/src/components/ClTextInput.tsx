@@ -43,7 +43,7 @@ export interface ClTextInputProps extends TextInputProps {
 
 // Forward ref to access the TextInput node
 export const ClTextInput = forwardRef<RNTextInput, Partial<ClTextInputProps>>(
-  (props: Partial<ClTextInputProps>, ref) => {
+  (props, ref) => {
     const {
       label,
       disabled,
