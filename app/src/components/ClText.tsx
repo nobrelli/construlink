@@ -3,7 +3,7 @@ import type { Heading, TextType, Weight } from '@/theme/typography'
 import type { TextProps } from 'react-native'
 import { Text as RNText } from 'react-native'
 
-interface ClTextProps extends TextProps {
+export interface ClTextProps extends TextProps {
   type: TextType
   weight: Weight
   dim: boolean
