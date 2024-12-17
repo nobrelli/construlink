@@ -5,55 +5,55 @@ export namespace Cl {
   export const categories: SelectInputOption[] = [
     {
       label: 'Electrician',
-      value: 0,
+      value: 'electrician',
     },
     {
       label: 'Plumber',
-      value: 1,
+      value: 'plumber',
     },
     {
       label: 'Carpenter',
-      value: 2,
+      value: 'carpenter',
     },
     {
       label: 'Mason',
-      value: 3,
+      value: 'mason',
     },
     {
       label: 'Painter',
-      value: 4,
+      value: 'painter',
     },
     {
       label: 'Roofer',
-      value: 5,
+      value: 'roofer',
     },
     {
       label: 'Welder',
-      value: 6,
+      value: 'welder',
     },
     {
       label: 'Tiler',
-      value: 7,
+      value: 'tiler',
     },
     {
       label: 'Steel Worker',
-      value: 8,
+      value: 'steel_worker',
     },
     {
       label: 'Landscaper',
-      value: 9,
+      value: 'landscaper',
     },
     {
       label: 'Excavator',
-      value: 10,
+      value: 'excavator',
     },
     {
       label: 'Surveyor',
-      value: 11,
+      value: 'surveyor',
     },
     {
       label: 'General Laborer',
-      value: 12,
+      value: 'general_laborer',
     },
   ]
 
@@ -88,6 +88,10 @@ export namespace Cl {
     {
       label: 'Monthly',
       value: 'monthly',
+    },
+    {
+      label: 'Unspecified',
+      value: '',
     },
   ]
 
