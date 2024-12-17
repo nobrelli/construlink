@@ -5,6 +5,7 @@ import { useRenderCount } from '@/hooks/useRenderCount'
 import { IconSet } from '@/types/Icons'
 import auth from '@react-native-firebase/auth'
 import { router } from 'expo-router'
+import React from 'react'
 import { Alert } from 'react-native'
 
 export default function Settings() {
@@ -59,7 +60,7 @@ export default function Settings() {
                 set: IconSet.MaterialCommunityIcons,
                 name: 'information-outline',
               },
-              onPress: () => router.navigate('/(main)/(user)/terms'),
+              onPress: () => router.navigate('/(main)/(legal)/terms'),
             },
           ]}
         />
