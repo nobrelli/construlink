@@ -6,6 +6,7 @@ import DateTimePicker, {
   type DateTimePickerEvent,
 } from '@react-native-community/datetimepicker'
 import { useRef, useState } from 'react'
+import React from 'react'
 import { Platform, Pressable, View } from 'react-native'
 import { ClText } from './ClText'
 import type { Day } from './ScheduleDayItem'
