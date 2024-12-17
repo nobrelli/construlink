@@ -1,17 +1,20 @@
+import { AlertState, ClAlert } from '@/components/ClAlert'
 import { ClPageView } from '@/components/ClPageView'
+import { ClSpinner } from '@/components/ClSpinner'
 import { ClTextInput } from '@/components/ClTextInput'
-import {
-  TradespersonCard,
-  type TradespersonProps,
-} from '@/components/cards/TradespersonCard'
+import { TradespersonCard } from '@/components/cards/TradespersonCard'
 import { createStyles } from '@/helpers/createStyles'
+import { joinNames } from '@/helpers/stringUtils'
 import { useRenderCount } from '@/hooks/useRenderCount'
 import { isEmployer } from '@/stores/auth'
 import { Spacing } from '@/theme'
 import { Status } from '@/types/Enums'
+import type { UserSchema } from '@/types/Schemas'
 import { Feather } from '@expo/vector-icons'
+import firestore from '@react-native-firebase/firestore'
 import { useRouter } from 'expo-router'
-import { View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList } from 'react-native'
 
 const data = [
   {
@@ -34,7 +37,7 @@ const data = [
   },
 ]
 
-const people: TradespersonProps[] = [
+const people = [
   {
     name: 'John Doe',
     expertise: 'Carpenter',
@@ -89,27 +92,85 @@ export default function Home() {
   const styles = useStyles()
   const router = useRouter()
 
+  const [isLoading, setIsLoading] = useState(true)
+  const [entries, setEntries] = useState<UserSchema[]>([])
+  const [hasError, setHasError] = useState(false)
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
+  useEffect(() => {
+    const unsubscribe = firestore()
+      .collection(isEmployer() ? 'tradespeople' : 'employers')
+      .onSnapshot(
+        (querySnapshot) => {
+          const entries: UserSchema[] = []
+
+          // biome-ignore lint/complexity/noForEach:
+          querySnapshot.forEach((documentSnapshot) => {
+            entries.push({
+              ...(documentSnapshot.data() as UserSchema),
+              key: documentSnapshot.id,
+            })
+          })
+
+          setEntries(entries)
+          setIsLoading(false)
+        },
+        (error) => {
+          console.error(error)
+          setHasError(true)
+        }
+      )
+
+    return () => unsubscribe()
+  }, [hasError])
+
   return (
-    <ClPageView
-      title={isEmployer() ? 'Tradespeople' : 'Jobs'}
-      contentContainerStyle={{
-        paddingBottom: Spacing[20],
-      }}
-    >
-      <ClTextInput
-        size="small"
-        left={<Feather name="search" />}
-        placeholder={`Search ${isEmployer() ? 'tradespeople' : 'trade jobs'}`}
-        readOnly
-        onPress={() => router.navigate('/(main)/(user)/search')}
-      />
-      <View style={styles.jobsList}>
-        {people.map((person, index) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey:
-          <TradespersonCard key={index} {...person} />
-        ))}
-      </View>
-    </ClPageView>
+    <>
+      <ClPageView
+        scrollable={false}
+        title={isEmployer() ? 'Tradespeople' : 'Jobs'}
+        contentContainerStyle={{
+          paddingBottom: Spacing[20],
+        }}
+      >
+        <ClTextInput
+          size="small"
+          left={<Feather name="search" />}
+          placeholder={`Search ${isEmployer() ? 'tradespeople' : 'trade jobs'}`}
+          readOnly
+          onPress={() => router.navigate('/(main)/(user)/search')}
+        />
+        <FlatList
+          data={entries}
+          contentContainerStyle={styles.entries}
+          renderItem={({ item }) => (
+            <TradespersonCard
+              userId={item.key}
+              name={joinNames(item.firstName, item.lastName) as string}
+              expertise="Carpenter"
+              proximity="5 m"
+              rating={4.9}
+            />
+          )}
+        />
+      </ClPageView>
+      {hasError && (
+        <ClAlert
+          visible={true}
+          title="Loading failed"
+          description="It seems your network connection is lost."
+          state={AlertState.ERROR}
+          rightButton={{
+            text: 'Retry',
+            onPress: () => {
+              setIsLoading(true)
+              setHasError(false)
+            },
+          }}
+        />
+      )}
+      {isLoading && <ClSpinner transluscent />}
+    </>
   )
 }
 
@@ -118,7 +179,7 @@ const useStyles = createStyles(({ spacing }) => ({
     backgroundColor: 'white',
     flex: 1,
   },
-  jobsList: {
+  entries: {
     gap: spacing[3],
     marginBottom: spacing[5],
   },
