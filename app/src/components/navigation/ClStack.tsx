@@ -23,8 +23,7 @@ export function ClStack(props: ComponentProps<typeof Stack>) {
         },
         headerTintColor: colors.primaryText,
         headerShadowVisible: false,
-        // IDK why this doesn't work in Expo development build
-        // headerLeft: (props) => <BackArrow {...props} />,
+        headerLeft: (props) => <ClBackArrow {...props} />,
         headerBackTitleVisible: false,
         headerTitleStyle: {
           fontFamily: Typo.family.bold,
