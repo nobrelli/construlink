@@ -1,8 +1,11 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
 import { capitalizeFirst } from '@/helpers/stringUtils'
+import { Cl } from '@/lib/options'
 import typography from '@/theme/typography'
+import { IconSet } from '@/types/Icons'
 import { View } from 'react-native'
+import { ClIconText } from '../ClIconText'
 import { ClText } from '../ClText'
 
 interface JobCardProps {
@@ -34,20 +37,27 @@ export function JobCard(props: JobCardProps) {
         </ClText>
       </View>
       <View>
-        <ClText style={{ fontSize: typography.presets.sm.fontSize }}>
-          {capitalizeFirst(employmentType)}
-        </ClText>
-        <ClText style={{ fontSize: typography.presets.sm.fontSize }}>
-          {location}
-        </ClText>
+        <ClIconText
+          icon={{
+            set: IconSet.MaterialCommunityIcons,
+            name: 'map-marker',
+          }}
+          text={location}
+          style={{ fontSize: typography.presets.sm.fontSize }}
+        />
+        <ClIconText
+          icon={{
+            set: IconSet.MaterialCommunityIcons,
+            name: 'briefcase',
+          }}
+          // biome-ignore lint/style/noNonNullAssertion:
+          text={
+            Cl.employmentTypes.find((option) => option.value === employmentType)
+              ?.label!
+          }
+          style={{ fontSize: typography.presets.sm.fontSize }}
+        />
       </View>
-      <ClText
-        style={{ fontSize: typography.presets.sm.fontSize }}
-        type="helper"
-        dim
-      >
-        {description}
-      </ClText>
       <ClText
         style={{ fontSize: typography.presets.xs.fontSize }}
         type="helper"
