@@ -42,7 +42,11 @@ export default function UserLayout() {
         <Stack.Screen name="works" options={{ title: 'Works' }} />
         <Stack.Screen name="reviews" options={{ title: 'Reviews' }} />
         <Stack.Screen name="job" options={{ headerShown: false }} />
-        <Stack.Screen name="company/create" options={{ title: 'Create company' }} />
+        <Stack.Screen name="company/create" options={{
+          title: 'Create company profile',
+          presentation: 'modal',
+          animation: 'fade_from_bottom',
+        }} />
       </ClStack>
       <Toasts
         defaultStyle={{
