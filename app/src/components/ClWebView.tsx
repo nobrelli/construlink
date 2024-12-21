@@ -8,11 +8,12 @@ import { ClSpinner } from './ClSpinner'
 
 interface ClWebViewProps {
   html: string
+  dim?: boolean
 }
 
 export function ClWebView(props: ClWebViewProps) {
-  const { html } = props
-  const styles = useStyles()
+  const { html, dim = false } = props
+  const styles = useStyles({ dim })
   const [webViewHeight, setWebViewHeight] = useState(0)
   const webViewScript = `
         setTimeout(() => {
@@ -51,9 +52,9 @@ export function ClWebView(props: ClWebViewProps) {
   )
 }
 
-const useStyles = createStyles(({ colors }) => ({
+const useStyles = createStyles(({ colors }, { dim }: { dim: boolean }) => ({
   webviewContainer: {
-    color: colors.primaryText,
+    color: dim ? colors.secondaryText : colors.primaryText,
     backgroundColor: colors.background,
   },
 }))
