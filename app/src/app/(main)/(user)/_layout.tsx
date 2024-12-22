@@ -18,7 +18,7 @@ export default function UserLayout() {
 
   return (
     <BottomSheetModalProvider>
-      <ClStack initialRouteName="job">
+      <ClStack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="search" options={{ title: 'Search' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
@@ -34,19 +34,19 @@ export default function UserLayout() {
 
         <Stack.Screen name="[userId]" options={{ title: 'View Profile' }} />
         <Stack.Screen name="stats" options={{ title: 'Stats' }} />
-        <Stack.Screen
-          name="skills"
-          options={{ title: 'Skills & Services' }}
-        />
+        <Stack.Screen name="skills" options={{ title: 'Skills & Services' }} />
         <Stack.Screen name="schedule" options={{ title: 'Schedule' }} />
         <Stack.Screen name="works" options={{ title: 'Works' }} />
         <Stack.Screen name="reviews" options={{ title: 'Reviews' }} />
         <Stack.Screen name="job" options={{ headerShown: false }} />
-        <Stack.Screen name="company/create" options={{
-          title: 'Create company profile',
-          presentation: 'modal',
-          animation: 'fade_from_bottom',
-        }} />
+        <Stack.Screen
+          name="company/create"
+          options={{
+            title: 'Create company profile',
+            presentation: 'modal',
+            animation: 'fade_from_bottom',
+          }}
+        />
       </ClStack>
       <Toasts
         defaultStyle={{

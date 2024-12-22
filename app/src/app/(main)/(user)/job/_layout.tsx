@@ -9,15 +9,24 @@ export default function UserLayout() {
     <ClStack>
       <Stack.Screen name="select" options={{ title: 'Select Job' }} />
       <Stack.Screen name="create" options={{ title: 'Post a Job' }} />
-      <Stack.Screen name="description-editor"
+      <Stack.Screen
+        name="description-editor"
         options={{
           title: 'Edit',
           presentation: 'modal',
           animation: 'fade_from_bottom',
         }}
       />
-      <Stack.Screen name="preview" options={{ title: 'Preview' }} />
+      <Stack.Screen
+        name="preview"
+        options={{
+          title: 'Preview',
+          presentation: 'modal',
+          animation: 'fade_from_bottom',
+        }}
+      />
       <Stack.Screen name="submitted" options={{ title: '' }} />
+      <Stack.Screen name="[jobId]" options={{ title: 'View Job Post' }} />
     </ClStack>
   )
 }

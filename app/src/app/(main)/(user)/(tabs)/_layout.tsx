@@ -104,7 +104,6 @@ const UserLayout = () => {
         headerShown: false,
         tabBarHideOnKeyboard: true,
       }}
-      initialRouteName="schedule"
     >
       <Tabs.Screen
         name="index"
