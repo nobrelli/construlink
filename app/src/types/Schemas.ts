@@ -19,6 +19,7 @@ export interface TradespersonSchema extends UserSchema {
 
 export interface JobSchema extends HasKey {
   authorId: string
+  createdAt: FirebaseFirestoreTypes.Timestamp
   title: string
   category: string
   description: string
@@ -31,4 +32,11 @@ export interface JobSchema extends HasKey {
   payType?: string
   payAmount?: number
   postAs: string
+}
+
+export interface CompanySchema extends HasKey {
+  name: string
+  description: string
+  size: string
+  location: string
 }
