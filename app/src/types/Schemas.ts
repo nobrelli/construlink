@@ -10,6 +10,7 @@ type HasKey = { key: string }
 export interface UserSchema extends HasKey {
   firstName: string
   lastName: string
+  address: string
   role: Role
 }
 
@@ -26,12 +27,13 @@ export interface JobSchema extends HasKey {
   location: string
   employmentType: string
   deadline?: FirebaseFirestoreTypes.Timestamp
-  hoursType?: string
-  start?: FirebaseFirestoreTypes.Timestamp
-  end?: FirebaseFirestoreTypes.Timestamp
-  payType?: string
   payAmount?: number
+  payAmountMin?: number
+  payAmountMax?: number
+  rate?: string
+  isUsingRange: boolean
   postAs: string
+  status: string
 }
 
 export interface CompanySchema extends HasKey {

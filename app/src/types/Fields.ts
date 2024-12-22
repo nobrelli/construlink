@@ -21,6 +21,11 @@ export interface SignUpFields extends SignInFields {
   lastName: string
 }
 
+export interface TimeRangeFields {
+  start: Date
+  end: Date
+}
+
 export interface CreateJobFields {
   title: string
   category: string
@@ -28,7 +33,7 @@ export interface CreateJobFields {
   location: string
   description: string
   postAs: string
-  deadline: string
+  deadline: Date
   payAmount: number
   payAmountMin: number
   payAmountMax: number
