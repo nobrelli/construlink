@@ -1288,7 +1288,6 @@ __metadata:
     "@expo/vector-icons": "npm:^14.0.2"
     "@gorhom/bottom-sheet": "npm:^5.0.6"
     "@react-native-async-storage/async-storage": "npm:1.23.1"
-    "@react-native-community/datetimepicker": "npm:8.0.1"
     "@react-native-community/netinfo": "npm:11.3.1"
     "@react-native-firebase/app": "npm:^21.6.1"
     "@react-native-firebase/auth": "npm:^21.6.1"
@@ -1302,6 +1301,8 @@ __metadata:
     "@testing-library/react-native": "npm:^12.8.1"
     "@types/jest": "npm:^29.5.14"
     "@types/react": "npm:~18.2.79"
+    "@types/react-native-get-random-values": "npm:^1"
+    date-fns: "npm:^4.1.0"
     expo: "npm:~51.0.39"
     expo-build-properties: "npm:~0.12.5"
     expo-constants: "npm:~16.0.2"
@@ -1324,7 +1325,9 @@ __metadata:
     react-hook-form: "npm:^7.53.2"
     react-native: "npm:0.74.5"
     react-native-advanced-input-mask: "npm:^1.1.1"
+    react-native-date-picker: "npm:^5.0.8"
     react-native-gesture-handler: "npm:~2.16.1"
+    react-native-get-random-values: "npm:^1.11.0"
     react-native-pell-rich-editor: "npm:^1.9.0"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.5"
@@ -1335,6 +1338,7 @@ __metadata:
     react-native-webview: "npm:^13.12.5"
     ts-node: "npm:^10.9.2"
     typescript: "npm:~5.3.3"
+    uuid: "npm:^11.0.3"
     zustand: "npm:^5.0.2"
   languageName: unknown
   linkType: soft
@@ -3106,22 +3110,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/datetimepicker@npm:8.0.1":
-  version: 8.0.1
-  resolution: "@react-native-community/datetimepicker@npm:8.0.1"
-  dependencies:
-    invariant: "npm:^2.2.4"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-    react-native-windows: "*"
-  peerDependenciesMeta:
-    react-native-windows:
-      optional: true
-  checksum: 10c0/3f4597035de551f5bf77374097d0cb1707058cb591db45d18d312eb9e533274aa789380e7698ff1944437793dcf148d484f9d5ce3246c03258f24eb3a75c11e5
-  languageName: node
-  linkType: hard
-
 "@react-native-community/netinfo@npm:11.3.1":
   version: 11.3.1
   resolution: "@react-native-community/netinfo@npm:11.3.1"
@@ -3950,6 +3938,13 @@ __metadata:
   version: 15.7.14
   resolution: "@types/prop-types@npm:15.7.14"
   checksum: 10c0/1ec775160bfab90b67a782d735952158c7e702ca4502968aa82565bd8e452c2de8601c8dfe349733073c31179116cf7340710160d3836aa8a1ef76d1532893b1
+  languageName: node
+  linkType: hard
+
+"@types/react-native-get-random-values@npm:^1":
+  version: 1.8.2
+  resolution: "@types/react-native-get-random-values@npm:1.8.2"
+  checksum: 10c0/66c0268151d0673bff88828d82d4087aeabbe29a8ffe433f50e2593cd04872fc890f0d2660203435d13412b10d866d24a3ab72981cf481e5676ccf88de12c235
   languageName: node
   linkType: hard
 
@@ -5529,6 +5524,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: 10c0/b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
@@ -6525,6 +6527,13 @@ __metadata:
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
   checksum: 10c0/160456d2d647e6019640bd07111634d8c353038d9fa40176afb7cd49b0548bdae83b56d05e907c2cce2300b81cae35d800ef92fefb9d0208e190fa3b7d6bb579
+  languageName: node
+  linkType: hard
+
+"fast-base64-decode@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "fast-base64-decode@npm:1.0.0"
+  checksum: 10c0/6d8feab513222a463d1cb58d24e04d2e04b0791ac6559861f99543daaa590e2636d040d611b40a50799bfb5c5304265d05e3658b5adf6b841a50ef6bf833d821
   languageName: node
   linkType: hard
 
@@ -10849,6 +10858,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-date-picker@npm:^5.0.8":
+  version: 5.0.8
+  resolution: "react-native-date-picker@npm:5.0.8"
+  peerDependencies:
+    react: ">= 17.0.1"
+    react-native: ">= 0.64.3"
+  checksum: 10c0/e8641b8c1b1a426de1040ce33faeacea5ed22b7d956a4339527014a526e8ee7aba280e39e8c70d5bcc397fc8bb4a9fb58dd06d8e91114b896b62e9cf73520e15
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.16.1":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
@@ -10862,6 +10881,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/cd31794870edc51bc7051bf22893b19cebda5754c2fbd381f72e6ae6a718c26c5cf6966ad2f80e15e3a3217d09cc3e2e1637132f70bf44aacf62ea15a7636c98
+  languageName: node
+  linkType: hard
+
+"react-native-get-random-values@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "react-native-get-random-values@npm:1.11.0"
+  dependencies:
+    fast-base64-decode: "npm:^1.0.0"
+  peerDependencies:
+    react-native: ">=0.56"
+  checksum: 10c0/2ce71f1ab7f5b36d4a9dd59cc80b4aa75526f047c6680a7f1a388fa8b9a62efdacaf7b7de3be593c73e882773b2eee74916b00f7c8b158e40b46388998218586
   languageName: node
   linkType: hard
 
@@ -12984,6 +13014,15 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: 10c0/02ba649de1b7ca8854bfe20a82f1dfbdda3fb57a22ab4a8972a63a34553cf7aa51bc9081cf7e001b035b88186d23689d69e71b510e610a09a4c66f68aa95b672
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^11.0.3":
+  version: 11.0.3
+  resolution: "uuid@npm:11.0.3"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10c0/cee762fc76d949a2ff9205770334699e0043d52bb766472593a25f150077c9deed821230251ea3d6ab3943a5ea137d2826678797f1d5f6754c7ce5ce27e9f7a6
   languageName: node
   linkType: hard
 
