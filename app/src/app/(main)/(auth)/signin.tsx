@@ -14,6 +14,7 @@ import { useAuthStore } from '@/stores/auth'
 import { Spacing } from '@/theme'
 import type { SignInFields } from '@/types/Fields'
 import { router } from 'expo-router'
+import type React from 'react'
 import { useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { type GestureResponderEvent, type TextInput, View } from 'react-native'
@@ -172,7 +173,7 @@ export default function Signin() {
           title="Sign in failed"
           description={errors.root.signin.message}
           state={AlertState.ERROR}
-          rightButton={{
+          primaryButton={{
             text: 'Retry',
             onPress: () => clearErrors('root'),
           }}
