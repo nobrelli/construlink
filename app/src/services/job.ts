@@ -19,6 +19,7 @@ export async function createJob(
         ...stripNullish(newFields),
         createdAt: serverTimestamp(),
         authorId: employerId,
+        status: 'pending',
       })
 
     return true
@@ -74,6 +75,22 @@ export async function getAllJobPosts() {
     })
 
     return entries
+  } catch (error: unknown) {
+    console.error(error)
+    return null
+  }
+}
+
+export async function getJobPost(jobId: string) {
+  try {
+    const result = await firestore()
+      .collection<JobSchema>('jobs')
+      .doc(jobId)
+      .get()
+
+    if (!result.exists) return null
+
+    return result.data() as JobSchema
   } catch (error: unknown) {
     console.error(error)
     return null
