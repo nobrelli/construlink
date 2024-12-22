@@ -1,45 +1,81 @@
-import type { ErrorResponse, JobSchema } from '@/types/Schemas'
-import firestore from '@react-native-firebase/firestore'
+import { stripNullish } from '@/helpers/utils'
+import type { CreateJobFields } from '@/types/Fields'
+import type { JobSchema } from '@/types/Schemas'
+import firestore, { serverTimestamp } from '@react-native-firebase/firestore'
+import { v7 as uuidv7 } from 'uuid'
 
-export class JobService {
-  private static _instance: JobService
-  private static _userId: string
+export async function createJob(
+  employerId: string,
+  fields: CreateJobFields,
+  companyId?: string
+) {
+  const newFields = Object.assign(fields, companyId && { companyId })
 
-  private constructor() {}
-
-  public static getInstance(userId?: string) {
-    if (!JobService._instance) {
-      JobService._instance = new JobService()
-
-      if (userId) {
-        JobService._userId = userId
-      }
-    }
-
-    return JobService._instance
-  }
-
-  public static async getJobs(): Promise<JobSchema[] | null> {
-    try {
-      const entries: JobSchema[] = []
-      const result = await firestore()
-        .collection<JobSchema>('jobs')
-        .where('authorId', '==', JobService._userId)
-        .get()
-
-      if (result.empty) return null
-
-      // biome-ignore lint/complexity/noForEach:
-      result.forEach((documentSnapshot) => {
-        entries.push({
-          ...documentSnapshot.data(),
-          key: documentSnapshot.id,
-        })
+  try {
+    await firestore()
+      .collection('jobs')
+      .doc(uuidv7())
+      .set({
+        ...stripNullish(newFields),
+        createdAt: serverTimestamp(),
+        authorId: employerId,
       })
 
-      return entries
-    } catch (error: unknown) {
-      return null
-    }
+    return true
+  } catch (error: unknown) {
+    return false
+  }
+}
+
+export async function getMyJobPosts(employerId: string) {
+  const entries: JobSchema[] = []
+
+  try {
+    const result = await firestore()
+      .collection<JobSchema>('jobs')
+      .where('authorId', '==', employerId)
+      .orderBy('createdAt', 'desc')
+      .get()
+
+    if (result.empty) return null
+
+    // biome-ignore lint/complexity/noForEach:
+    result.forEach((documentSnapshot) => {
+      entries.push({
+        ...documentSnapshot.data(),
+        key: documentSnapshot.id,
+      })
+    })
+
+    return entries
+  } catch (error: unknown) {
+    console.error(error)
+    return null
+  }
+}
+
+export async function getAllJobPosts() {
+  const entries: JobSchema[] = []
+
+  try {
+    const result = await firestore()
+      .collection<JobSchema>('jobs')
+      .orderBy('createdAt', 'desc')
+      .get()
+
+    if (result.empty) return null
+
+    // biome-ignore lint/complexity/noForEach:
+    result.forEach((documentSnapshot) => {
+      entries.push({
+        ...documentSnapshot.data(),
+        key: documentSnapshot.id,
+      })
+    })
+
+    return entries
+  } catch (error: unknown) {
+    console.error(error)
+    return null
   }
 }
