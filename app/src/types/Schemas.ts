@@ -12,6 +12,8 @@ export interface UserSchema extends HasKey {
   lastName: string
   address: string
   role: Role
+  expertise: string[]
+  location: string
 }
 
 export interface TradespersonSchema extends UserSchema {
@@ -41,4 +43,11 @@ export interface CompanySchema extends HasKey {
   description: string
   size: string
   location: string
+}
+
+export interface InvitationSchema extends HasKey {
+  authorId: string
+  recipientId: string
+  jobId: string
+  status: string
 }
