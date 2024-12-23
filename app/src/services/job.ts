@@ -96,3 +96,22 @@ export async function getJobPost(jobId: string) {
     return null
   }
 }
+
+export async function createInvitation(
+  authorId: string,
+  recipientId: string,
+  jobId: string
+) {
+  try {
+    await firestore().collection('invitations').doc(uuidv7()).set({
+      authorId,
+      recipientId,
+      jobId,
+      status: 'pending',
+    })
+
+    return true
+  } catch (error: unknown) {
+    return false
+  }
+}
