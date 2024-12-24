@@ -1,7 +1,8 @@
 import { createStyles } from '@/helpers/createStyles'
 import type { Sizes } from '@/theme'
 import { Status } from '@/types/Enums'
-import { Image, type ImageProps } from 'expo-image'
+import { Image, type ImageProps, ImageSource } from 'expo-image'
+import React from 'react'
 import { View } from 'react-native'
 
 interface ClAvatarProps {
@@ -10,6 +11,8 @@ interface ClAvatarProps {
   status?: Status
 }
 
+const placeholder = require('@/assets/images/avatar_placeholder.png')
+
 export function ClAvatar({ source, size, status }: ClAvatarProps) {
   const styles = useStyles({ size, status })
 
@@ -17,8 +20,10 @@ export function ClAvatar({ source, size, status }: ClAvatarProps) {
     <>
       <View style={styles.avatarCropper}>
         <Image
-          source={source ?? require('@/assets/images/john.jpg')}
+          source={source}
           style={styles.avatar}
+          placeholder={placeholder}
+          transition={1000}
         />
       </View>
       {status !== undefined && <View style={styles.online} />}
