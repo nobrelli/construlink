@@ -1,3 +1,5 @@
+import { createStyles } from '@/helpers/createStyles'
+import { resolveColor } from '@/helpers/resolveColor'
 import { Cl } from '@/lib/options'
 import { getCompanyDetails } from '@/services/company'
 import typography from '@/theme/typography'
@@ -15,26 +17,64 @@ import { ClText } from '../ClText'
 interface JobCardProps
   extends Pick<
     JobSchema,
-    'authorId' | 'title' | 'location' | 'postAs' | 'employmentType'
+    'authorId' | 'title' | 'location' | 'postAs' | 'employmentType' | 'status'
   > {
   jobId: string
   postTime: Date
+  pickMode?: boolean
+  selected?: boolean
+  onSelect?: (id: string) => void
 }
 
 export function JobCard(props: JobCardProps) {
-  const { jobId, title, location, postAs, postTime, employmentType } = props
+  const {
+    jobId,
+    title,
+    location,
+    postAs,
+    postTime,
+    employmentType,
+    status,
+    pickMode,
+    selected,
+    onSelect,
+  } = props
+  const [isSelected, setIsSelected] = useState(false)
+  const styles = useStyles()
 
   const handleViewJobPost = () => {
-    router.navigate({
-      pathname: '/job/[jobId]',
-      params: {
-        jobId,
-      },
-    })
+    if (pickMode) {
+      onSelect?.(jobId)
+      setIsSelected(!isSelected)
+    } else {
+      router.navigate({
+        pathname: '/job/[jobId]',
+        params: {
+          jobId,
+        },
+      })
+    }
   }
 
   return (
-    <ClCard onPress={handleViewJobPost}>
+    <ClCard
+      onPress={handleViewJobPost}
+      style={selected && styles.selected}
+      footer={
+        status === 'pending' ? (
+          <ClIconText
+            icon={{
+              set: IconSet.MaterialCommunityIcons,
+              name: 'progress-clock',
+            }}
+            text={
+              status === 'pending' ? 'This post is pending approval.' : 'Active'
+            }
+            dim
+          />
+        ) : undefined
+      }
+    >
       <View>
         <ClText
           weight="bold"
@@ -126,3 +166,12 @@ function JobPostedAgo({ timestamp }: { timestamp: Date }) {
     </ClText>
   )
 }
+
+const useStyles = createStyles(({ colors, spacing, sizes, typo }) => ({
+  selected: {
+    backgroundColor: resolveColor(colors.accent[800], colors.brand[50]),
+    borderRadius: sizes.radius['2xl'],
+    borderWidth: sizes.borderWidth.thin,
+    borderColor: resolveColor(colors.accent[700], colors.brand[200]),
+  },
+}))
