@@ -1,7 +1,13 @@
 import type { RadioOption } from '@/components/ClRadio'
 import type { SelectInputOption } from '@/components/ClSelectInput'
+import { Role } from '@/types/Enums'
 
 export namespace Cl {
+  export const collections: Record<string, string> = {
+    [Role.EMPLOYER]: 'employers',
+    [Role.TRADESPERSON]: 'tradespeople',
+  }
+
   export const categories: SelectInputOption[] = [
     {
       label: 'Electrician',
