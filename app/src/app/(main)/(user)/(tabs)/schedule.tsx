@@ -4,6 +4,7 @@ import { type Day, ScheduleDayItem } from '@/components/ScheduleDayItem'
 import { TimeRangeEditorSheet } from '@/components/sheets/TimeRangeEditorSheet'
 import { createStyles } from '@/helpers/createStyles'
 import { useRenderCount } from '@/hooks/useRenderCount'
+import React from 'react'
 import { type ComponentRef, useCallback, useRef } from 'react'
 import { View } from 'react-native'
 
@@ -45,7 +46,7 @@ const days: Day[] = [
   },
 ]
 
-export default () => {
+export default function Schedule() {
   useRenderCount('Schedule Screen')
 
   const styles = useStyles()
