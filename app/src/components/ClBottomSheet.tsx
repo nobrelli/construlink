@@ -1,6 +1,5 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
-import { Spacing } from '@/theme'
 import spacing from '@/theme/spacing'
 import {
   BottomSheetBackdrop,
@@ -10,15 +9,16 @@ import {
   type BottomSheetModalProps,
   BottomSheetScrollView,
   BottomSheetView,
+  useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
 import type { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
+import { useMount } from '@reactuses/core'
 import { type ReactNode, forwardRef, useCallback } from 'react'
-import type { StyleProp, ViewStyle } from 'react-native'
-import { ClText } from './ClText'
+import { BackHandler, type StyleProp, type ViewStyle } from 'react-native'
 
 export interface ClBottomSheetProps
   extends Omit<BottomSheetModalProps, 'footerComponent'> {
-  title: string
+  title?: string
   children: ReactNode | ReactNode[]
   footerComponent?: ReactNode | ReactNode[]
   scrollable?: boolean
@@ -36,6 +36,7 @@ export const ClBottomSheet = forwardRef<BottomSheetModal, ClBottomSheetProps>(
       ...rest
     } = props
     const styles = useStyles()
+    const { dismiss } = useBottomSheetModal()
 
     const renderBackdrop = useCallback(
       (props: BottomSheetDefaultBackdropProps) => (
@@ -61,6 +62,17 @@ export const ClBottomSheet = forwardRef<BottomSheetModal, ClBottomSheetProps>(
       ),
       []
     )
+
+    useMount(() => {
+      const handleBackButton = () => {
+        return dismiss()
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
+    })
 
     const View = scrollable ? BottomSheetScrollView : BottomSheetView
 
