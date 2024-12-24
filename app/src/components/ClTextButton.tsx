@@ -1,7 +1,7 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
 import { useScheme } from '@/hooks/useScheme'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Sizes, Styled } from '@/theme'
 import type { SkinnedButtonColors } from '@/theme/styled'
 import {
@@ -48,7 +48,7 @@ export function ClTextButton(props: ClTextButtonProps) {
     ...rest
   } = props
   const styles = useStyles({ color, size })
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
 
   const colorProgress = useSharedValue(0)
   const buttonAnimStyles = useAnimatedStyle(() => {
@@ -120,7 +120,7 @@ export function ClTextButton(props: ClTextButtonProps) {
 
 const useStyles = createStyles(
   (
-    { mode, styled: { Button }, colors },
+    { scheme, styled: { Button }, colors },
     { color, size }: Required<Pick<ClTextButtonProps, 'color' | 'size'>>
   ) => {
     return {
@@ -133,17 +133,17 @@ const useStyles = createStyles(
         borderRadius: Button.radius,
         paddingHorizontal: Button.sizes[size].px,
         paddingVertical: Button.sizes[size].py,
-        borderColor: Button.colors[mode][color].border,
+        borderColor: Button.colors[scheme][color].border,
       },
       bodyVariantSolid: {
-        backgroundColor: Button.colors[mode][color].background,
+        backgroundColor: Button.colors[scheme][color].background,
       },
       bodyVariantOutline: {
         backgroundColor: 'transparent',
       },
       bodyVariantDisabled: {
-        backgroundColor: Button.colors[mode].disabled.background,
-        borderColor: Button.colors[mode].disabled.border,
+        backgroundColor: Button.colors[scheme].disabled.background,
+        borderColor: Button.colors[scheme].disabled.border,
       },
 
       text: {
@@ -157,7 +157,7 @@ const useStyles = createStyles(
       textVariantOutline: {
         color: resolveColor(
           colors.white,
-          Button.colors[mode][color].background
+          Button.colors[scheme][color].background
         ),
       },
       textVariantDisabled: {

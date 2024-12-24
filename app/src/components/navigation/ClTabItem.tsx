@@ -1,6 +1,6 @@
 import { createStyles } from '@/helpers/createStyles'
 import { useRenderCount } from '@/hooks/useRenderCount'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Sizes } from '@/theme'
 import type { IconType } from '@/types/Icons'
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
@@ -43,7 +43,7 @@ export function ClTabItem(props: ClTabItemProps) {
   const { label, icon, routeName, isFocused, options, onPress, onLongPress } =
     props
   const styles = useStyles()
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
   const ACTIVE_SCALE = 1.5
   const iconScale = useSharedValue(1)
 

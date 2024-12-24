@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import type { ColorType } from '@/theme/palette'
 import Svg, { type SvgProps, G, Path } from 'react-native-svg'
 
@@ -6,7 +6,7 @@ export function Logo({
   accent = 'accent',
   ...rest
 }: SvgProps & { accent?: ColorType }) {
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
 
   return (
     <Svg viewBox="0 0 1995 1995" {...rest}>

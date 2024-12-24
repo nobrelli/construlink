@@ -1,11 +1,11 @@
 import { resolveColor } from '@/helpers/resolveColor'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Typo } from '@/theme'
 import { type TextProps, View } from 'react-native'
 import { ClText } from '../ClText'
 
 export default ({ message, ...rest }: TextProps & { message?: string }) => {
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
 
   return (
     <View

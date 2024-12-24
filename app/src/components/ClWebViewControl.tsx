@@ -96,7 +96,7 @@ export const ClWebViewControl = <T extends string | object>(
 }
 
 const useStyles = createStyles(
-  ({ mode, colors, sizes, styled: { TextInput }, spacing }) => ({
+  ({ scheme, colors, sizes, styled: { TextInput }, spacing }) => ({
     inputLabel: {
       marginBottom: spacing[2],
       fontSize: TextInput.sizes.small.labelFontSize,
@@ -104,15 +104,15 @@ const useStyles = createStyles(
     },
     webviewContainer: {
       padding: TextInput.sizes.small.padding,
-      backgroundColor: TextInput.colors[mode].background,
+      backgroundColor: TextInput.colors[scheme].background,
     },
     input: {
       overflow: 'hidden',
       color: colors.primaryText,
       borderRadius: TextInput.radius,
-      backgroundColor: TextInput.colors[mode].background,
+      backgroundColor: TextInput.colors[scheme].background,
       borderWidth: sizes.borderWidth.thin,
-      borderColor: TextInput.colors[mode].border,
+      borderColor: TextInput.colors[scheme].border,
     },
     placeholder: {
       color: resolveColor(colors.neutral[500], colors.neutral[400]),

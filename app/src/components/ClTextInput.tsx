@@ -1,6 +1,6 @@
 import { createStyles } from '@/helpers/createStyles'
 import { resolveColor } from '@/helpers/resolveColor'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Sizes, Spacing, type Styled } from '@/theme'
 import { MaterialIcons as Icon } from '@expo/vector-icons'
 import {
@@ -63,7 +63,7 @@ export const ClTextInput = forwardRef<RNTextInput, Partial<ClTextInputProps>>(
     const [focused, setFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(!passwordMode)
 
-    const colors = useThemeStore((state) => state.colors)
+    const colors = useAppStore((state) => state.colors)
     const styles = useStyles({ size })
     const touchOpacity = 0.7
     const iconSize = {
@@ -170,7 +170,7 @@ export const ClTextInput = forwardRef<RNTextInput, Partial<ClTextInputProps>>(
 
 const useStyles = createStyles(
   (
-    { mode, styled: { TextInput }, spacing, sizes, colors, typo },
+    { scheme, styled: { TextInput }, spacing, sizes, colors, typo },
     { size }: Pick<ClTextInputProps, 'size'>
   ) => {
     return {
@@ -187,9 +187,9 @@ const useStyles = createStyles(
         justifyContent: 'space-between',
         overflow: 'hidden',
         borderRadius: TextInput.radius,
-        backgroundColor: TextInput.colors[mode].background,
+        backgroundColor: TextInput.colors[scheme].background,
         borderWidth: sizes.borderWidth.thin,
-        borderColor: TextInput.colors[mode].border,
+        borderColor: TextInput.colors[scheme].border,
         padding: TextInput.sizes[size].padding,
       },
       inputFocus: {

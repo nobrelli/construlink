@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import type { Theme } from '@/theme'
 import sizes from '@/theme/sizes'
 import spacing from '@/theme/spacing'
@@ -19,9 +19,9 @@ export const createStyles =
     styles: StyleType | ((theme: Theme, props: ExtraProps) => StyleType)
   ) =>
   (props?: ExtraProps): StyleType => {
-    const dynamicThemeProps = useThemeStore(
+    const dynamicThemeProps = useAppStore(
       useShallow((state) => ({
-        mode: state.mode,
+        scheme: state.scheme,
         colors: state.colors,
       }))
     )
@@ -46,5 +46,5 @@ export const createStyles =
             )
           : styles
       return StyleSheet.create(css)
-    }, [props, dynamicThemeProps.mode])
+    }, [props, dynamicThemeProps.scheme])
   }

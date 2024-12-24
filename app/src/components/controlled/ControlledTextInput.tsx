@@ -1,5 +1,5 @@
 import { resolveColor } from '@/helpers/resolveColor'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Sizes, Spacing } from '@/theme'
 import { MaterialIcons as Icon } from '@expo/vector-icons'
 import type { ComponentProps } from 'react'
@@ -25,7 +25,7 @@ export const ControlledTextInput = <TFields extends FieldValues>({
   ...controllerProps
 }: ControlledTextInputProps & UseControllerProps<TFields>) => {
   const { field, fieldState } = useController(controllerProps)
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
 
   return (
     <View style={{ gap: Spacing[1] }}>

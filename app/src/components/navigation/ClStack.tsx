@@ -1,5 +1,5 @@
 import { useRenderCount } from '@/hooks/useRenderCount'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Typo } from '@/theme'
 import { Stack } from 'expo-router'
 import type { ComponentProps } from 'react'
@@ -9,7 +9,7 @@ export function ClStack(props: ComponentProps<typeof Stack>) {
   useRenderCount('ClStack')
 
   const { children, screenOptions, ...rest } = props
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
 
   return (
     <Stack

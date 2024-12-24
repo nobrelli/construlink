@@ -1,6 +1,6 @@
 import { resolveColor } from '@/helpers/resolveColor'
 import { useRenderCount } from '@/hooks/useRenderCount'
-import { useThemeStore } from '@/stores/theme'
+import { useAppStore } from '@/stores/app'
 import { Sizes, Spacing } from '@/theme'
 import { MaterialIcons as Icon } from '@expo/vector-icons'
 import { type ComponentProps, useCallback, useState } from 'react'
@@ -31,7 +31,7 @@ export const ControlledMaskedTextInput = <TFields extends FieldValues>({
   ...controllerProps
 }: ControlledMaskedTextInputProps & UseControllerProps<TFields>) => {
   useRenderCount('ControlledMaskedTextInput')
-  const colors = useThemeStore((state) => state.colors)
+  const colors = useAppStore((state) => state.colors)
   const { field, fieldState } = useController(controllerProps)
   const [value, setValue] = useState('')
 

@@ -81,14 +81,14 @@ export const ClToast = forwardRef<ClToastHandleProps, ClToastProps>(
 
 const useStyles = createStyles(
   (
-    { mode, styled: { Toast }, sizes, colors, spacing },
+    { scheme, styled: { Toast }, sizes, colors, spacing },
     { type }: { type: ClToastProps['type'] }
   ) => ({
     container: {
       position: 'absolute',
       top: spacing.px,
       width: '92%',
-      backgroundColor: Toast.colors[mode][type].backgroundColor,
+      backgroundColor: Toast.colors[scheme][type].backgroundColor,
       borderRadius: Toast.radius,
       flexDirection: 'row',
       alignItems: 'center',

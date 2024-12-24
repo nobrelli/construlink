@@ -121,7 +121,7 @@ export const ClAlert = forwardRef<ClAlertHandleProps, ClAlertProps>(
 
 const useStyles = createStyles(
   (
-    { mode, sizes, colors, spacing, typo },
+    { scheme, sizes, colors, spacing, typo },
     { state }: { state: AlertState }
   ) => {
     const iconColors: Record<AlertState, ColorValue> = {
