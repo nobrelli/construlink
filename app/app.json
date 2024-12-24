@@ -48,6 +48,22 @@
 			// 	}
 			// ],
 			"expo-secure-store",
+			[
+				"expo-notifications",
+				{
+					"icon": "./src/assets/images/icon.png",
+					"color": "#ffffff",
+					"defaultChannel": "default",
+					"enableBackgroundRemoteNotifications": true
+				}
+			],
+			[
+				"expo-image-picker",
+				{
+					"photosPermission": "This app requires access to your photos to let you upload a profile picture or showcase your projects. We only use the photos you select and do not store or share any other media without your permission.",
+					"cameraPermission": "This app requires access to your camera to let you capture photos for your profile or projects. We only use the images you take and do not store or share any other media without your permission."
+				}
+			],
 			"@react-native-firebase/app",
 			"@react-native-firebase/auth",
 			"@react-native-firebase/crashlytics",
