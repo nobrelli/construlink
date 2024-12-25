@@ -1,12 +1,15 @@
 import type { RadioOption } from '@/components/ClRadio'
 import type { SelectInputOption } from '@/components/ClSelectInput'
 import { Role } from '@/types/Enums'
+import { Day } from '@/types/Schemas'
 
 export namespace Cl {
   export const collections: Record<string, string> = {
     [Role.EMPLOYER]: 'employers',
     [Role.TRADESPERSON]: 'tradespeople',
   }
+
+  export const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   export const categories: SelectInputOption[] = [
     {
